@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: colin-speaker-pod
+spec:
+  restartPolicy: Never
+
+  initContainers:
+  - name: init-permissions
+    image: busybox
+    command:
+    - sh
+    - -c
+    - |
+      chown -R root:users /workspace && \
+      chmod -R 2775 /workspace
+    volumeMounts:
+    - name: storage-volume
+      mountPath: /workspace
+
+  - name: setup-repo
+    image: gitlab-registry.nrp-nautilus.io/zihaozhou/nautilus_tutorial:jupyterhub
+    command:
+    - sh
+    - -c
+    - |
+      set -xe
+      cd /workspace
+
+      if [ ! -d gpt-bert ]; then
+        git clone https://github.com/banffjiang/DSC-Capstone-A10-2.git
+      fi
+
+      cd gpt-bert
+
+    volumeMounts:
+    - name: storage-volume
+      mountPath: /workspace
+
+  containers:
+  - name: gpu-container
+    image: gitlab-registry.nrp-nautilus.io/zihaozhou/nautilus_tutorial:jupyterhub
+    workingDir: /workspace/gpt-bert
+    command:
+    - jupyter
+    - lab
+    - --NotebookApp.token=627a7b3b 
+    - --ip=0.0.0.0
+    - --port=8888
+    - --no-browser
+    - --allow-root
+    - --NotebookApp.allow_origin='*'
+    volumeMounts:
+    - name: storage-volume
+      mountPath: /workspace
+
+    resources:
+      limits:
+        nvidia.com/gpu: "1"   # 1 GPU
+        memory: "8Gi"         # 8 GiB RAM (note the capital G + i)
+        cpu: "4"              # 4 CPU cores
+
+  volumes:
+  - name: storage-volume
+    persistentVolumeClaim:
+      claimName: colin-gpt-bert-pvc
