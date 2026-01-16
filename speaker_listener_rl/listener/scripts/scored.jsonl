@@ -1,0 +1,2 @@
+{"candidate": "A cat sat on a mat and looked out the window.", "reference": "The cat sat on the mat and looked out the window.", "meta": {"id": 1}, "bertscore_f1": 0.9438449740409851}
+{"candidate": "A spaceship launched into orbit.", "reference": "The cat sat on the mat and looked out the window.", "meta": {"id": 2}, "bertscore_f1": 0.2902083992958069}
