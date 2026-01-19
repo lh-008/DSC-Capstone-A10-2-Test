@@ -1,2 +1,4 @@
 {"candidate":"A cat sat on a mat and looked out the window.","reference":"The cat sat on the mat and looked out the window.","meta":{"id":1}}
 {"candidate":"A spaceship launched into orbit.","reference":"The cat sat on the mat and looked out the window.","meta":{"id":2}}
+// {"candidate":"The city","reference":"The city council approved a new policy to reduce emissions by expanding public transit.","meta":{"id":1,"K":2}}
+// {"candidate":"An adult","reference":"The child asked for more juice and pointed at the cup.","meta":{"id":2,"K":2}}

@@ -3,6 +3,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments
 from trl import AutoModelForCausalLMWithValueHead, PPOConfig, PPOTrainer #transformer reinforcement learning  for ppo
 
 from trl import DPOTrainer
+# preference_dataset = load_dataset("json", data_files="data/preferences_train.jsonl")["train"]
 
 model_name = "gpt2" #causal LM  
 model_tokenizer = AutoTokenizer.from_pretrained(model_name)

@@ -1,0 +1,2 @@
+{"prompt": "PASSAGE: The city council approved a new policy to reduce emissions by expanding public transit.\nQUESTION: What did the city council approve?\nSUMMARY:", "chosen": "emissions transit policy", "rejected": "a spaceship launched into orbit", "meta": {"id": 1}}
+{"prompt": "PASSAGE: The child asked for more juice and pointed at the cup.\nQUESTION: What did the child ask for?\nSUMMARY:", "chosen": "more juice", "rejected": "the economy is growing fast", "meta": {"id": 2}}
