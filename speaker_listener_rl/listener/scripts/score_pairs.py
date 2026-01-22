@@ -2,7 +2,7 @@ import argparse
 import json
 from tqdm import tqdm
 
-from listener.bertscore_listener import BERTScoreListener
+from speaker_listener_rl.listener.listener.bertscore_listener import BERTScoreListener
 
 
 def main():

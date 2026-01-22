@@ -1,13 +1,32 @@
 import json
 import re
+import os
 
-IN_PATH = "speaker_listener_rl/data/train_10M/childes.train"
-OUT_PATH = "speaker_listener_rl/data/childes_utterances.jsonl"
+# IN_PATH = "../speaker_listener_rl/data/train_10M/childes.train"
+# OUT_PATH = "speaker_listener_rl/data/childes_utterances.jsonl"
+BASE_DIR = os.path.dirname(__file__)  # speaker_listener_rl/data
+IN_PATH = os.path.join(BASE_DIR, "train_10M", "childes.train")
+OUT_PATH = os.path.join(BASE_DIR, "childes_utterances.jsonl")
 
 def clean_line(line: str) -> str:
     line = line.strip()
-    line = re.sub(r"\s+", " ", line)
+    if not line:
+        return ""
+
+    # if not (line.startswith("*MOT:") or line.startswith("*CHI:")):
+    #     return ""
+
+    line = re.sub(r"^\*[A-Z]{3}:\s*", "", line)
+
+    line = re.sub(r"\[[^\]]*\]", " ", line)
+
+    line = re.sub(r"\s+", " ", line).strip()
+
+    if not re.search(r"[A-Za-z]", line):
+        return ""
+
     return line
+
 
 def main(max_lines=5000, min_words=2, max_words=30):
     n = 0
