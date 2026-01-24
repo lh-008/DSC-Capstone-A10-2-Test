@@ -38,11 +38,10 @@ def main():
             # )
             outputs = model.generate(
                 **inputs,
-                max_new_tokens=2,
+                max_new_tokens=2, #should replace with k to rpelace over epochs
                 do_sample=True,
                 top_p=0.6,         
-                temperature=0.5,   
-                top_k=50,           
+                temperature=0.75,            
                 repetition_penalty=1.1,
                 bad_words_ids=[
                     [tokenizer.encode("1", add_special_tokens=False)[0]],
