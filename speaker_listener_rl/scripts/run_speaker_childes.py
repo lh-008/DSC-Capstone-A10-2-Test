@@ -39,6 +39,7 @@ def main():
             outputs = model.generate(
                 **inputs,
                 max_new_tokens=2,
+                min_new_tokens=1,
                 do_sample=True,
                 top_p=0.6,         
                 temperature=0.5,   

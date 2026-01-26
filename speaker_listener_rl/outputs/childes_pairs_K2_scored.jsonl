@@ -157,11 +157,11 @@
 {"candidate": ", ,", "reference": "by the couch under the chair.", "meta": {"id": 156, "K": 2}, "bertscore_f1": -0.05082071200013161}
 {"candidate": ". .", "reference": "see it?", "meta": {"id": 157, "K": 2}, "bertscore_f1": -0.22940517961978912}
 {"candidate": ", ,", "reference": "over by the couch.", "meta": {"id": 158, "K": 2}, "bertscore_f1": -0.03269502893090248}
-{"candidate": ", the", "reference": "the chair.", "meta": {"id": 159, "K": 2}, "bertscore_f1": 0.21803371608257294}
+{"candidate": ", the", "reference": "the chair.", "meta": {"id": 159, "K": 2}, "bertscore_f1": 0.2180340737104416}
 {"candidate": ", a", "reference": "the chair by the couch.", "meta": {"id": 160, "K": 2}, "bertscore_f1": -0.006634147372096777}
 {"candidate": ", a", "reference": "under the chair by the couch.", "meta": {"id": 161, "K": 2}, "bertscore_f1": -0.04069414734840393}
 {"candidate": ", ,", "reference": "I seed it.", "meta": {"id": 162, "K": 2}, "bertscore_f1": 0.043798089027404785}
-{"candidate": ". .", "reference": "you see it?", "meta": {"id": 163, "K": 2}, "bertscore_f1": -0.32154902815818787}
+{"candidate": ". .", "reference": "you see it?", "meta": {"id": 163, "K": 2}, "bertscore_f1": -0.3215486705303192}
 {"candidate": ". .", "reference": "now what?", "meta": {"id": 164, "K": 2}, "bertscore_f1": -0.2722843289375305}
 {"candidate": ", ,", "reference": "Eve play bouillon cube.", "meta": {"id": 165, "K": 2}, "bertscore_f1": 0.0008172167581506073}
 {"candidate": ", a", "reference": "now we'll play with the bouillon cubes.", "meta": {"id": 166, "K": 2}, "bertscore_f1": -0.09928477555513382}
@@ -239,12 +239,12 @@
 {"candidate": ", ,", "reference": "Pap study.", "meta": {"id": 238, "K": 2}, "bertscore_f1": 0.0530509315431118}
 {"candidate": ", the", "reference": "it's not in Papa's study.", "meta": {"id": 239, "K": 2}, "bertscore_f1": 0.005683435592800379}
 {"candidate": ", you", "reference": "it's under the taperecorder.", "meta": {"id": 240, "K": 2}, "bertscore_f1": -0.011975722387433052}
-{"candidate": ", a", "reference": "the taperecorder.", "meta": {"id": 241, "K": 2}, "bertscore_f1": -0.06332794576883316}
+{"candidate": ", a", "reference": "the taperecorder.", "meta": {"id": 241, "K": 2}, "bertscore_f1": -0.06332865357398987}
 {"candidate": ", ,", "reference": "I'm sorry.", "meta": {"id": 242, "K": 2}, "bertscore_f1": -0.0998106375336647}
 {"candidate": ", ,", "reference": "it's not.", "meta": {"id": 243, "K": 2}, "bertscore_f1": -0.06437047570943832}
 {"candidate": ", \"", "reference": "it's beside the taperecorder.", "meta": {"id": 244, "K": 2}, "bertscore_f1": -0.14289957284927368}
 {"candidate": ", and", "reference": "beside the taperecorder.", "meta": {"id": 245, "K": 2}, "bertscore_f1": -0.0671805888414383}
-{"candidate": ", a", "reference": "that one.", "meta": {"id": 246, "K": 2}, "bertscore_f1": 0.10493430495262146}
+{"candidate": ", a", "reference": "that one.", "meta": {"id": 246, "K": 2}, "bertscore_f1": 0.10493360459804535}
 {"candidate": ", ,", "reference": "that one.", "meta": {"id": 247, "K": 2}, "bertscore_f1": 0.11172914505004883}
 {"candidate": ", ,", "reference": "no the big stool.", "meta": {"id": 248, "K": 2}, "bertscore_f1": -0.03152253106236458}
 {"candidate": ", which", "reference": "like this one.", "meta": {"id": 249, "K": 2}, "bertscore_f1": 0.000266990449745208}
@@ -264,19 +264,19 @@
 {"candidate": ", ,", "reference": "Eve sit down.", "meta": {"id": 263, "K": 2}, "bertscore_f1": -0.0019512198632583022}
 {"candidate": ", ,", "reference": "well this is my stool.", "meta": {"id": 264, "K": 2}, "bertscore_f1": -0.03206569328904152}
 {"candidate": ", you", "reference": "you sit on the other side.", "meta": {"id": 265, "K": 2}, "bertscore_f1": -0.02555091492831707}
-{"candidate": ", \"", "reference": "Mommy stool.", "meta": {"id": 266, "K": 2}, "bertscore_f1": -0.011080809868872166}
+{"candidate": ", \"", "reference": "Mommy stool.", "meta": {"id": 266, "K": 2}, "bertscore_f1": -0.011080103926360607}
 {"candidate": ", this", "reference": "this is Mommy's stool right.", "meta": {"id": 267, "K": 2}, "bertscore_f1": -0.1599777787923813}
-{"candidate": ". .", "reference": "Eve sit down 'nother...", "meta": {"id": 268, "K": 2}, "bertscore_f1": -0.29097720980644226}
+{"candidate": ". .", "reference": "Eve sit down 'nother...", "meta": {"id": 268, "K": 2}, "bertscore_f1": -0.2909775674343109}
 {"candidate": ", ,", "reference": "Eve came back.", "meta": {"id": 269, "K": 2}, "bertscore_f1": -0.0021751245949417353}
 {"candidate": ", ,", "reference": "Eve came back.", "meta": {"id": 270, "K": 2}, "bertscore_f1": -0.0021751245949417353}
-{"candidate": ". .", "reference": "you came back?", "meta": {"id": 271, "K": 2}, "bertscore_f1": -0.3530040979385376}
-{"candidate": ", ,", "reference": "Eve tapioca.", "meta": {"id": 272, "K": 2}, "bertscore_f1": -0.10701514035463333}
+{"candidate": ". .", "reference": "you came back?", "meta": {"id": 271, "K": 2}, "bertscore_f1": -0.35300374031066895}
+{"candidate": ", ,", "reference": "Eve tapioca.", "meta": {"id": 272, "K": 2}, "bertscore_f1": -0.10701584815979004}
 {"candidate": ", the", "reference": "that's right.", "meta": {"id": 273, "K": 2}, "bertscore_f1": -0.10078712552785873}
 {"candidate": ", you", "reference": "you're gonna have some for lunch.", "meta": {"id": 274, "K": 2}, "bertscore_f1": -0.048851482570171356}
 {"candidate": ", you", "reference": "it's an orange peel.", "meta": {"id": 275, "K": 2}, "bertscore_f1": 0.002960203681141138}
 {"candidate": ", a", "reference": "orange peel.", "meta": {"id": 276, "K": 2}, "bertscore_f1": 0.09662793576717377}
 {"candidate": ", ,", "reference": "Mommy's gonna make a goodie.", "meta": {"id": 277, "K": 2}, "bertscore_f1": -0.1684081107378006}
-{"candidate": ", ,", "reference": "make cookie.", "meta": {"id": 278, "K": 2}, "bertscore_f1": 0.062486711889505386}
+{"candidate": ", ,", "reference": "make cookie.", "meta": {"id": 278, "K": 2}, "bertscore_f1": 0.06248635798692703}
 {"candidate": ", \"", "reference": "make a goodie.", "meta": {"id": 279, "K": 2}, "bertscore_f1": -0.21157614886760712}
 {"candidate": ", ,", "reference": "that's more orange peel.", "meta": {"id": 280, "K": 2}, "bertscore_f1": -0.09137571603059769}
 {"candidate": ", make", "reference": "make a gookie.", "meta": {"id": 281, "K": 2}, "bertscore_f1": 0.013527162373065948}
@@ -343,7 +343,7 @@
 {"candidate": ", ,", "reference": "toy box.", "meta": {"id": 342, "K": 2}, "bertscore_f1": 0.17142552137374878}
 {"candidate": ", ,", "reference": "xxx Becky puzzle.", "meta": {"id": 343, "K": 2}, "bertscore_f1": 0.09783434122800827}
 {"candidate": ", ,", "reference": "no that's not Becky's puzzle.", "meta": {"id": 344, "K": 2}, "bertscore_f1": -0.14622706174850464}
-{"candidate": ", which", "reference": "that's Eve's puzzle.", "meta": {"id": 345, "K": 2}, "bertscore_f1": -0.1690208464860916}
+{"candidate": ", which", "reference": "that's Eve's puzzle.", "meta": {"id": 345, "K": 2}, "bertscore_f1": -0.16902048885822296}
 {"candidate": ", ,", "reference": "Becky have puzzle.", "meta": {"id": 346, "K": 2}, "bertscore_f1": 0.022665582597255707}
 {"candidate": ", which", "reference": "that's right.", "meta": {"id": 347, "K": 2}, "bertscore_f1": -0.18981467187404633}
 {"candidate": ", ,", "reference": "Becky's puzzle's at home.", "meta": {"id": 348, "K": 2}, "bertscore_f1": -0.1351374238729477}
@@ -366,7 +366,7 @@
 {"candidate": ", you", "reference": "you be a horsie and run fast.", "meta": {"id": 365, "K": 2}, "bertscore_f1": -0.015064476989209652}
 {"candidate": ", ,", "reference": "Eve horsie.", "meta": {"id": 366, "K": 2}, "bertscore_f1": -0.011273636482656002}
 {"candidate": ", ,", "reference": "yes you are a horsie.", "meta": {"id": 367, "K": 2}, "bertscore_f1": -0.10456913709640503}
-{"candidate": ", ,", "reference": "Eve Clip clop.", "meta": {"id": 368, "K": 2}, "bertscore_f1": -0.006583998445421457}
+{"candidate": ", ,", "reference": "Eve Clip clop.", "meta": {"id": 368, "K": 2}, "bertscore_f1": -0.006584351882338524}
 {"candidate": ", you", "reference": "you're Clip clop.", "meta": {"id": 369, "K": 2}, "bertscore_f1": 0.06282645463943481}
 {"candidate": ", ,", "reference": "you were running fast.", "meta": {"id": 370, "K": 2}, "bertscore_f1": -0.05887068808078766}
 {"candidate": ", :", "reference": "xxx came back.", "meta": {"id": 371, "K": 2}, "bertscore_f1": 0.17713262140750885}
@@ -473,7 +473,7 @@
 {"candidate": ". .", "reference": "is it?", "meta": {"id": 472, "K": 2}, "bertscore_f1": -0.22472472488880157}
 {"candidate": ". .", "reference": "is it my lunch?", "meta": {"id": 473, "K": 2}, "bertscore_f1": -0.18904724717140198}
 {"candidate": ", ,", "reference": "Eve lunch.", "meta": {"id": 474, "K": 2}, "bertscore_f1": 0.12020644545555115}
-{"candidate": ", a", "reference": "yes your lunch.", "meta": {"id": 475, "K": 2}, "bertscore_f1": -0.013842536136507988}
+{"candidate": ", a", "reference": "yes your lunch.", "meta": {"id": 475, "K": 2}, "bertscore_f1": -0.013842889107763767}
 {"candidate": ". .", "reference": "more what?", "meta": {"id": 476, "K": 2}, "bertscore_f1": -0.2919890284538269}
 {"candidate": ", ,", "reference": "more tapioca.", "meta": {"id": 477, "K": 2}, "bertscore_f1": -0.11865924298763275}
 {"candidate": ", ,", "reference": "I'll give you more tapioca.", "meta": {"id": 478, "K": 2}, "bertscore_f1": -0.16369692981243134}

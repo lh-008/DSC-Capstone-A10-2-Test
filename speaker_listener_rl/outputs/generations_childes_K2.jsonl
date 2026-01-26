@@ -1,14 +1,14 @@
-{"id": 0, "K": 2, "summary": ", and", "utterance": "and sit down."}
-{"id": 1, "K": 2, "summary": ", and", "utterance": "there a napkin."}
-{"id": 2, "K": 2, "summary": ", and", "utterance": "they are napkins yes."}
+{"id": 0, "K": 2, "summary": ", ,", "utterance": "and sit down."}
+{"id": 1, "K": 2, "summary": ", the", "utterance": "there a napkin."}
+{"id": 2, "K": 2, "summary": ", a", "utterance": "they are napkins yes."}
 {"id": 3, "K": 2, "summary": ", ,", "utterance": "turn around and finish your lunch."}
-{"id": 4, "K": 2, "summary": ", \"", "utterance": "I think you'd better finish your lunch and then we'll go."}
+{"id": 4, "K": 2, "summary": ", ,", "utterance": "I think you'd better finish your lunch and then we'll go."}
 {"id": 5, "K": 2, "summary": ", which", "utterance": "take a nap."}
 {"id": 6, "K": 2, "summary": ". .", "utterance": "Mom where my new blanket?"}
-{"id": 7, "K": 2, "summary": ", a", "utterance": "your new clean blanket's up in your bed."}
-{"id": 8, "K": 2, "summary": ", ,", "utterance": "in bed sleeping."}
-{"id": 9, "K": 2, "summary": ", it", "utterance": "it's not sleeping."}
-{"id": 10, "K": 2, "summary": ", you", "utterance": "it's just laying there."}
+{"id": 7, "K": 2, "summary": ", ,", "utterance": "your new clean blanket's up in your bed."}
+{"id": 8, "K": 2, "summary": ", where", "utterance": "in bed sleeping."}
+{"id": 9, "K": 2, "summary": ", \"", "utterance": "it's not sleeping."}
+{"id": 10, "K": 2, "summary": ", ,", "utterance": "it's just laying there."}
 {"id": 11, "K": 2, "summary": ". .", "utterance": "Eve is it a clean new blanket?"}
 {"id": 12, "K": 2, "summary": ", a", "utterance": "upstairs in bed."}
 {"id": 13, "K": 2, "summary": ". .", "utterance": "clean new blanket?"}
@@ -16,31 +16,31 @@
 {"id": 15, "K": 2, "summary": ", ,", "utterance": "oh no."}
 {"id": 16, "K": 2, "summary": ", ,", "utterance": "no it's not in the living room."}
 {"id": 17, "K": 2, "summary": ". .", "utterance": "no where is it?"}
-{"id": 18, "K": 2, "summary": ", ,", "utterance": "uh Fraser living room."}
+{"id": 18, "K": 2, "summary": ", the", "utterance": "uh Fraser living room."}
 {"id": 19, "K": 2, "summary": ". .", "utterance": "in Fraser's living room?"}
 {"id": 20, "K": 2, "summary": ". .", "utterance": "where is your blanket?"}
-{"id": 21, "K": 2, "summary": ", ,", "utterance": "uh in Cromer living room."}
-{"id": 22, "K": 2, "summary": ", ,", "utterance": "what's it doing in Cromer's living room."}
+{"id": 21, "K": 2, "summary": ", \"", "utterance": "uh in Cromer living room."}
+{"id": 22, "K": 2, "summary": ", a", "utterance": "what's it doing in Cromer's living room."}
 {"id": 23, "K": 2, "summary": ". .", "utterance": "who put it there?"}
 {"id": 24, "K": 2, "summary": ". .", "utterance": "who put your blanket in Fraser's living room?"}
-{"id": 25, "K": 2, "summary": ", a", "utterance": "our living room."}
+{"id": 25, "K": 2, "summary": ", where", "utterance": "our living room."}
 {"id": 26, "K": 2, "summary": ", ,", "utterance": "green are."}
 {"id": 27, "K": 2, "summary": ". .", "utterance": "green are what?"}
 {"id": 28, "K": 2, "summary": ". .", "utterance": "green car?"}
 {"id": 29, "K": 2, "summary": ". .", "utterance": "where's the green car?"}
-{"id": 30, "K": 2, "summary": ", or", "utterance": "on t v."}
+{"id": 30, "K": 2, "summary": ", a", "utterance": "on t v."}
 {"id": 31, "K": 2, "summary": ". .", "utterance": "on t v?"}
-{"id": 32, "K": 2, "summary": ", the", "utterance": "six little taxis standing in a row."}
-{"id": 33, "K": 2, "summary": ", the", "utterance": "there was a green one."}
-{"id": 34, "K": 2, "summary": ", which", "utterance": "was a green one."}
-{"id": 35, "K": 2, "summary": ", ,", "utterance": "there was a green one."}
-{"id": 36, "K": 2, "summary": ", ,", "utterance": "had a taxi."}
-{"id": 37, "K": 2, "summary": ", ,", "utterance": "taxi uhhuh."}
+{"id": 32, "K": 2, "summary": ", ,", "utterance": "six little taxis standing in a row."}
+{"id": 33, "K": 2, "summary": ", ,", "utterance": "there was a green one."}
+{"id": 34, "K": 2, "summary": ", ,", "utterance": "was a green one."}
+{"id": 35, "K": 2, "summary": ", the", "utterance": "there was a green one."}
+{"id": 36, "K": 2, "summary": ", the", "utterance": "had a taxi."}
+{"id": 37, "K": 2, "summary": ", :", "utterance": "taxi uhhuh."}
 {"id": 38, "K": 2, "summary": ". .", "utterance": "how many taxis were there?"}
 {"id": 39, "K": 2, "summary": ", a", "utterance": "on t v."}
-{"id": 40, "K": 2, "summary": ", the", "utterance": "I know they were on t v."}
+{"id": 40, "K": 2, "summary": ", and", "utterance": "I know they were on t v."}
 {"id": 41, "K": 2, "summary": ". .", "utterance": "but how many taxis were there?"}
-{"id": 42, "K": 2, "summary": ", ,", "utterance": "on show."}
+{"id": 42, "K": 2, "summary": ", {", "utterance": "on show."}
 {"id": 43, "K": 2, "summary": ", \"", "utterance": "on the show."}
 {"id": 44, "K": 2, "summary": ". .", "utterance": "on the shelf?"}
 {"id": 45, "K": 2, "summary": ". .", "utterance": "all in a row?"}
@@ -48,29 +48,29 @@
 {"id": 47, "K": 2, "summary": ". .", "utterance": "are you all done then?"}
 {"id": 48, "K": 2, "summary": ", ,", "utterance": "= = = childes/CHILDES_NA/Brown/Eve/010800.cha = = ="}
 {"id": 49, "K": 2, "summary": ", a", "utterance": "more grape juice."}
-{"id": 50, "K": 2, "summary": ", a", "utterance": "didn't think so."}
+{"id": 50, "K": 2, "summary": ", ,", "utterance": "didn't think so."}
 {"id": 51, "K": 2, "summary": ", ,", "utterance": "no Eve play bouillon cube."}
 {"id": 52, "K": 2, "summary": ". .", "utterance": "you must put the blocks in the box first before you can play with the bouillon cubes..."}
-{"id": 53, "K": 2, "summary": ", ,", "utterance": "put the blocks away first."}
+{"id": 53, "K": 2, "summary": ", put", "utterance": "put the blocks away first."}
 {"id": 54, "K": 2, "summary": ", a", "utterance": "a block first."}
 {"id": 55, "K": 2, "summary": ". .", "utterance": "what's this?"}
-{"id": 56, "K": 2, "summary": ", ,", "utterance": "you sit by me."}
+{"id": 56, "K": 2, "summary": ", you", "utterance": "you sit by me."}
 {"id": 57, "K": 2, "summary": ", \"", "utterance": "Fraser read Eve Lassie."}
-{"id": 58, "K": 2, "summary": ", ,", "utterance": "that's Lassie."}
-{"id": 59, "K": 2, "summary": ", where", "utterance": "that Lassie."}
-{"id": 60, "K": 2, "summary": ", ,", "utterance": "that's Lassie."}
+{"id": 58, "K": 2, "summary": ", \"", "utterance": "that's Lassie."}
+{"id": 59, "K": 2, "summary": ", a", "utterance": "that Lassie."}
+{"id": 60, "K": 2, "summary": ", which", "utterance": "that's Lassie."}
 {"id": 61, "K": 2, "summary": ". .", "utterance": "what are you going to do now?"}
 {"id": 62, "K": 2, "summary": ", ,", "utterance": "Fraser gink Lassie."}
 {"id": 63, "K": 2, "summary": ", ,", "utterance": "no he doesn't wanna read Lassie again."}
 {"id": 64, "K": 2, "summary": ", ,", "utterance": "he doesn't wanna read Lassie."}
-{"id": 65, "K": 2, "summary": ", \"", "utterance": "Fraser taperecorder floor."}
-{"id": 66, "K": 2, "summary": ", a", "utterance": "it's on the floor."}
-{"id": 67, "K": 2, "summary": ", ,", "utterance": "that's right."}
+{"id": 65, "K": 2, "summary": ", ,", "utterance": "Fraser taperecorder floor."}
+{"id": 66, "K": 2, "summary": ", ,", "utterance": "it's on the floor."}
+{"id": 67, "K": 2, "summary": ", which", "utterance": "that's right."}
 {"id": 68, "K": 2, "summary": ", ,", "utterance": "Mom get red bicycle."}
 {"id": 69, "K": 2, "summary": ". .", "utterance": "get the red bicycle?"}
 {"id": 70, "K": 2, "summary": ". .", "utterance": "where is it?"}
 {"id": 71, "K": 2, "summary": ". .", "utterance": "where are they?"}
-{"id": 72, "K": 2, "summary": ", \"", "utterance": "say music Eve."}
+{"id": 72, "K": 2, "summary": ", ,", "utterance": "say music Eve."}
 {"id": 73, "K": 2, "summary": ", ,", "utterance": "say music Eve."}
 {"id": 74, "K": 2, "summary": ". .", "utterance": "did you find the bicycle?"}
 {"id": 75, "K": 2, "summary": ". .", "utterance": "did you find the little red bicycle?"}
@@ -80,10 +80,10 @@
 {"id": 79, "K": 2, "summary": ". .", "utterance": "what doing Mommy?"}
 {"id": 80, "K": 2, "summary": ". .", "utterance": "what doing Mommy?"}
 {"id": 81, "K": 2, "summary": ", ,", "utterance": "I'm making tapioca for your lunch."}
-{"id": 82, "K": 2, "summary": ", ,", "utterance": "make tapioca lunch."}
-{"id": 83, "K": 2, "summary": ", if", "utterance": "for your lunch yes."}
+{"id": 82, "K": 2, "summary": ", make", "utterance": "make tapioca lunch."}
+{"id": 83, "K": 2, "summary": ", ,", "utterance": "for your lunch yes."}
 {"id": 84, "K": 2, "summary": ". .", "utterance": "when's Cromer coming?"}
-{"id": 85, "K": 2, "summary": ", ,", "utterance": "on Wednesday."}
+{"id": 85, "K": 2, "summary": ", {", "utterance": "on Wednesday."}
 {"id": 86, "K": 2, "summary": ", a", "utterance": "on Wednesday."}
 {"id": 87, "K": 2, "summary": ", ,", "utterance": "that's right."}
 {"id": 88, "K": 2, "summary": ", ,", "utterance": "Eve jump Mommy kitchen."}
@@ -99,11 +99,11 @@
 {"id": 98, "K": 2, "summary": ", ,", "utterance": "Mommy make tapioca lunch."}
 {"id": 99, "K": 2, "summary": ", ,", "utterance": "Mom Mommy make Eve tapioca lunch."}
 {"id": 100, "K": 2, "summary": ", ,", "utterance": "Eve make xxx tapioca."}
-{"id": 101, "K": 2, "summary": ", my", "utterance": "my tapioca."}
+{"id": 101, "K": 2, "summary": ", ,", "utterance": "my tapioca."}
 {"id": 102, "K": 2, "summary": ". .", "utterance": "what are you doing?"}
 {"id": 103, "K": 2, "summary": ", ,", "utterance": "Eve make tapioca."}
 {"id": 104, "K": 2, "summary": ", ,", "utterance": "no I'm almost finished."}
-{"id": 105, "K": 2, "summary": ", ,", "utterance": "I'm almost finished."}
+{"id": 105, "K": 2, "summary": ", \"", "utterance": "I'm almost finished."}
 {"id": 106, "K": 2, "summary": ", you", "utterance": "you stay in the living room."}
 {"id": 107, "K": 2, "summary": ", ,", "utterance": "Eve making tapioca."}
 {"id": 108, "K": 2, "summary": ", ,", "utterance": "but I'm almost finished."}
@@ -113,70 +113,70 @@
 {"id": 112, "K": 2, "summary": ", ,", "utterance": "it's hot."}
 {"id": 113, "K": 2, "summary": ". .", "utterance": "but what is it?"}
 {"id": 114, "K": 2, "summary": ", ,", "utterance": "Eve tapioca."}
-{"id": 115, "K": 2, "summary": ", the", "utterance": "it's hot tapioca."}
+{"id": 115, "K": 2, "summary": ", you", "utterance": "it's hot tapioca."}
 {"id": 116, "K": 2, "summary": ", ,", "utterance": "hot tapioca."}
-{"id": 117, "K": 2, "summary": ", a", "utterance": "it's hot water."}
-{"id": 118, "K": 2, "summary": ", :", "utterance": "xxx water hot."}
+{"id": 117, "K": 2, "summary": ", ,", "utterance": "it's hot water."}
+{"id": 118, "K": 2, "summary": ", ,", "utterance": "xxx water hot."}
 {"id": 119, "K": 2, "summary": ", ,", "utterance": "Eve tapioca hot."}
 {"id": 120, "K": 2, "summary": ", ,", "utterance": "and cool."}
 {"id": 121, "K": 2, "summary": ", and", "utterance": "and cool yes."}
 {"id": 122, "K": 2, "summary": ", ,", "utterance": "by the time you have lunch it'll be cool."}
 {"id": 123, "K": 2, "summary": ". .", "utterance": "what is that?"}
 {"id": 124, "K": 2, "summary": ", ,", "utterance": "Eve play bouillon cube."}
-{"id": 125, "K": 2, "summary": ", this", "utterance": "you can play with the bouillon cubes if you put the blocks back in the box."}
+{"id": 125, "K": 2, "summary": ", which", "utterance": "you can play with the bouillon cubes if you put the blocks back in the box."}
 {"id": 126, "K": 2, "summary": ", ,", "utterance": "cmon I'll help."}
 {"id": 127, "K": 2, "summary": ", ,", "utterance": "help me."}
 {"id": 128, "K": 2, "summary": ", ,", "utterance": "yes I'll help."}
-{"id": 129, "K": 2, "summary": ", ,", "utterance": "you help me put them in the box."}
-{"id": 130, "K": 2, "summary": ", ,", "utterance": "you can help me put them in the box."}
+{"id": 129, "K": 2, "summary": ", you", "utterance": "you help me put them in the box."}
+{"id": 130, "K": 2, "summary": ", a", "utterance": "you can help me put them in the box."}
 {"id": 131, "K": 2, "summary": ", ,", "utterance": "then you'll get the bouillon cubes."}
-{"id": 132, "K": 2, "summary": ", {", "utterance": "in box."}
-{"id": 133, "K": 2, "summary": ", the", "utterance": "that's right."}
+{"id": 132, "K": 2, "summary": ", a", "utterance": "in box."}
+{"id": 133, "K": 2, "summary": ", which", "utterance": "that's right."}
 {"id": 134, "K": 2, "summary": ", ,", "utterance": "Eve cry."}
 {"id": 135, "K": 2, "summary": ". .", "utterance": "why were you crying?"}
 {"id": 136, "K": 2, "summary": ", ,", "utterance": "Eve put blocks Mommy."}
 {"id": 137, "K": 2, "summary": ", ,", "utterance": "yes you help me put the blocks away."}
 {"id": 138, "K": 2, "summary": ". .", "utterance": "tinkertoy doing there?"}
 {"id": 139, "K": 2, "summary": ". .", "utterance": "what is that tinkertoy doing in there?"}
-{"id": 140, "K": 2, "summary": ", ,", "utterance": "it doesn't belong in there."}
-{"id": 141, "K": 2, "summary": ", a", "utterance": "there more."}
+{"id": 140, "K": 2, "summary": ", \"", "utterance": "it doesn't belong in there."}
+{"id": 141, "K": 2, "summary": ", ,", "utterance": "there more."}
 {"id": 142, "K": 2, "summary": ", ,", "utterance": "no it doesn't belong in that box."}
 {"id": 143, "K": 2, "summary": ", ,", "utterance": "it belongs in the tinkertoy box."}
-{"id": 144, "K": 2, "summary": ", you", "utterance": "there's one by the rocking chair."}
-{"id": 145, "K": 2, "summary": ", a", "utterance": "by the rocking chair there's one."}
+{"id": 144, "K": 2, "summary": ", a", "utterance": "there's one by the rocking chair."}
+{"id": 145, "K": 2, "summary": ", by", "utterance": "by the rocking chair there's one."}
 {"id": 146, "K": 2, "summary": ", the", "utterance": "the rocking chair."}
-{"id": 147, "K": 2, "summary": ", \"", "utterance": "by rockchair."}
-{"id": 148, "K": 2, "summary": ", ,", "utterance": "get it."}
+{"id": 147, "K": 2, "summary": ", ,", "utterance": "by rockchair."}
+{"id": 148, "K": 2, "summary": ", get", "utterance": "get it."}
 {"id": 149, "K": 2, "summary": ", ,", "utterance": "that's right."}
 {"id": 150, "K": 2, "summary": ". .", "utterance": "now are there any more?"}
-{"id": 151, "K": 2, "summary": ", which", "utterance": "there's one under the table."}
-{"id": 152, "K": 2, "summary": ", which", "utterance": "under the table."}
-{"id": 153, "K": 2, "summary": ", a", "utterance": "there's one under the other chair."}
+{"id": 151, "K": 2, "summary": ", ,", "utterance": "there's one under the table."}
+{"id": 152, "K": 2, "summary": ", ,", "utterance": "under the table."}
+{"id": 153, "K": 2, "summary": ", which", "utterance": "there's one under the other chair."}
 {"id": 154, "K": 2, "summary": ", where", "utterance": "under the other chair by the window."}
-{"id": 155, "K": 2, "summary": ", ,", "utterance": "over by the couch."}
+{"id": 155, "K": 2, "summary": ", a", "utterance": "over by the couch."}
 {"id": 156, "K": 2, "summary": ", ,", "utterance": "by the couch under the chair."}
 {"id": 157, "K": 2, "summary": ". .", "utterance": "see it?"}
-{"id": 158, "K": 2, "summary": ", ,", "utterance": "over by the couch."}
-{"id": 159, "K": 2, "summary": ", the", "utterance": "the chair."}
+{"id": 158, "K": 2, "summary": ", \"", "utterance": "over by the couch."}
+{"id": 159, "K": 2, "summary": ", ,", "utterance": "the chair."}
 {"id": 160, "K": 2, "summary": ", a", "utterance": "the chair by the couch."}
-{"id": 161, "K": 2, "summary": ", a", "utterance": "under the chair by the couch."}
+{"id": 161, "K": 2, "summary": ", where", "utterance": "under the chair by the couch."}
 {"id": 162, "K": 2, "summary": ", ,", "utterance": "I seed it."}
 {"id": 163, "K": 2, "summary": ". .", "utterance": "you see it?"}
 {"id": 164, "K": 2, "summary": ". .", "utterance": "now what?"}
 {"id": 165, "K": 2, "summary": ", ,", "utterance": "Eve play bouillon cube."}
-{"id": 166, "K": 2, "summary": ", a", "utterance": "now we'll play with the bouillon cubes."}
+{"id": 166, "K": 2, "summary": ", ,", "utterance": "now we'll play with the bouillon cubes."}
 {"id": 167, "K": 2, "summary": ", ,", "utterance": "thank you."}
-{"id": 168, "K": 2, "summary": ", {", "utterance": "thank you."}
+{"id": 168, "K": 2, "summary": ", ,", "utterance": "thank you."}
 {"id": 169, "K": 2, "summary": ", ,", "utterance": "Eve play the bouillon cube."}
 {"id": 170, "K": 2, "summary": ", ,", "utterance": "Mom open."}
-{"id": 171, "K": 2, "summary": ", ,", "utterance": "ask Fraser if he'll open it for you."}
+{"id": 171, "K": 2, "summary": ", \"", "utterance": "ask Fraser if he'll open it for you."}
 {"id": 172, "K": 2, "summary": ". .", "utterance": "what do you want me to do?"}
 {"id": 173, "K": 2, "summary": ". .", "utterance": "what do I hafta do?"}
 {"id": 174, "K": 2, "summary": ", ,", "utterance": "op' bouillon cube."}
 {"id": 175, "K": 2, "summary": ", ,", "utterance": "op' it bouillon cube."}
 {"id": 176, "K": 2, "summary": ", ,", "utterance": "I didn't think you'd miss it."}
-{"id": 177, "K": 2, "summary": ", this", "utterance": "this one's empty."}
-{"id": 178, "K": 2, "summary": ", which", "utterance": "that one's empty."}
+{"id": 177, "K": 2, "summary": ", ,", "utterance": "this one's empty."}
+{"id": 178, "K": 2, "summary": ", ,", "utterance": "that one's empty."}
 {"id": 179, "K": 2, "summary": ", ,", "utterance": "it's empty yes."}
 {"id": 180, "K": 2, "summary": ", ,", "utterance": "come back."}
 {"id": 181, "K": 2, "summary": ", ,", "utterance": "Eve find top."}
@@ -185,16 +185,16 @@
 {"id": 184, "K": 2, "summary": ". .", "utterance": "where is it?"}
 {"id": 185, "K": 2, "summary": ". .", "utterance": "where top?"}
 {"id": 186, "K": 2, "summary": ", ,", "utterance": "I don't know."}
-{"id": 187, "K": 2, "summary": ", ,", "utterance": "find it."}
+{"id": 187, "K": 2, "summary": ", {", "utterance": "find it."}
 {"id": 188, "K": 2, "summary": ". .", "utterance": "where is it?"}
-{"id": 189, "K": 2, "summary": ", ,", "utterance": "Fraser coat."}
+{"id": 189, "K": 2, "summary": ", \"", "utterance": "Fraser coat."}
 {"id": 190, "K": 2, "summary": ". .", "utterance": "Fraser's coat?"}
 {"id": 191, "K": 2, "summary": ". .", "utterance": "is it by Fraser's coat?"}
 {"id": 192, "K": 2, "summary": ". .", "utterance": "is it?"}
 {"id": 193, "K": 2, "summary": ", ,", "utterance": "well you go and find it."}
 {"id": 194, "K": 2, "summary": ". .", "utterance": "is it there?"}
 {"id": 195, "K": 2, "summary": ", you", "utterance": "you get it then."}
-{"id": 196, "K": 2, "summary": ", which", "utterance": "it's lost."}
+{"id": 196, "K": 2, "summary": ", ,", "utterance": "it's lost."}
 {"id": 197, "K": 2, "summary": ", ,", "utterance": "too bad."}
 {"id": 198, "K": 2, "summary": ", ,", "utterance": "too bad."}
 {"id": 199, "K": 2, "summary": ", ,", "utterance": "too bad."}
@@ -205,108 +205,108 @@
 {"id": 204, "K": 2, "summary": ". .", "utterance": "the top for what?"}
 {"id": 205, "K": 2, "summary": ". .", "utterance": "what top?"}
 {"id": 206, "K": 2, "summary": ". .", "utterance": "where is it?"}
-{"id": 207, "K": 2, "summary": ", \"", "utterance": "it's right there on the floor."}
+{"id": 207, "K": 2, "summary": ", it", "utterance": "it's right there on the floor."}
 {"id": 208, "K": 2, "summary": ". .", "utterance": "you see it?"}
-{"id": 209, "K": 2, "summary": ", where", "utterance": "see it."}
-{"id": 210, "K": 2, "summary": ", ,", "utterance": "that one has a top."}
+{"id": 209, "K": 2, "summary": ", ,", "utterance": "see it."}
+{"id": 210, "K": 2, "summary": ", the", "utterance": "that one has a top."}
 {"id": 211, "K": 2, "summary": ", ,", "utterance": "xxx see it."}
-{"id": 212, "K": 2, "summary": ", ,", "utterance": "here's the other top."}
+{"id": 212, "K": 2, "summary": ", here", "utterance": "here's the other top."}
 {"id": 213, "K": 2, "summary": ", ,", "utterance": "right there."}
-{"id": 214, "K": 2, "summary": ", and", "utterance": "that's the other one."}
-{"id": 215, "K": 2, "summary": ", ,", "utterance": "that other one."}
-{"id": 216, "K": 2, "summary": ", ,", "utterance": "get back."}
+{"id": 214, "K": 2, "summary": ", which", "utterance": "that's the other one."}
+{"id": 215, "K": 2, "summary": ", which", "utterance": "that other one."}
+{"id": 216, "K": 2, "summary": ", where", "utterance": "get back."}
 {"id": 217, "K": 2, "summary": ". .", "utterance": "what doing Mommy?"}
 {"id": 218, "K": 2, "summary": ", ,", "utterance": "I'm making orange peel."}
 {"id": 219, "K": 2, "summary": ". .", "utterance": "are those your bouillon cubes?"}
-{"id": 220, "K": 2, "summary": ", :", "utterance": "xxx bouillon cube."}
+{"id": 220, "K": 2, "summary": ", \"", "utterance": "xxx bouillon cube."}
 {"id": 221, "K": 2, "summary": ", ,", "utterance": "Eve sit Mom lap."}
 {"id": 222, "K": 2, "summary": ". .", "utterance": "you wanna sit on my lap?"}
 {"id": 223, "K": 2, "summary": ". .", "utterance": "oh but I'm very busy..."}
-{"id": 224, "K": 2, "summary": ", ,", "utterance": "you can sit on my lap later."}
+{"id": 224, "K": 2, "summary": ", you", "utterance": "you can sit on my lap later."}
 {"id": 225, "K": 2, "summary": ", ,", "utterance": "Eve sit on Mommy lap."}
 {"id": 226, "K": 2, "summary": ", you", "utterance": "you can sit out here by me on the other stool."}
-{"id": 227, "K": 2, "summary": ", a", "utterance": "by me."}
-{"id": 228, "K": 2, "summary": ", \"", "utterance": "yes on the stool."}
-{"id": 229, "K": 2, "summary": ", ,", "utterance": "but you'd better get the big stool Eve."}
-{"id": 230, "K": 2, "summary": ", ,", "utterance": "not the little stool the big one."}
+{"id": 227, "K": 2, "summary": ", ,", "utterance": "by me."}
+{"id": 228, "K": 2, "summary": ", which", "utterance": "yes on the stool."}
+{"id": 229, "K": 2, "summary": ", and", "utterance": "but you'd better get the big stool Eve."}
+{"id": 230, "K": 2, "summary": ", which", "utterance": "not the little stool the big one."}
 {"id": 231, "K": 2, "summary": ", ,", "utterance": "big one."}
-{"id": 232, "K": 2, "summary": ", which", "utterance": "the big one."}
-{"id": 233, "K": 2, "summary": ", the", "utterance": "the big xxx one."}
+{"id": 232, "K": 2, "summary": ", ,", "utterance": "the big one."}
+{"id": 233, "K": 2, "summary": ", ,", "utterance": "the big xxx one."}
 {"id": 234, "K": 2, "summary": ", a", "utterance": "the big one like I'm sitting on."}
-{"id": 235, "K": 2, "summary": ", the", "utterance": "the big stool."}
+{"id": 235, "K": 2, "summary": ", ,", "utterance": "the big stool."}
 {"id": 236, "K": 2, "summary": ", a", "utterance": "a big xxx stool."}
-{"id": 237, "K": 2, "summary": ", a", "utterance": "yes you get the other big stool."}
+{"id": 237, "K": 2, "summary": ", and", "utterance": "yes you get the other big stool."}
 {"id": 238, "K": 2, "summary": ", ,", "utterance": "Pap study."}
-{"id": 239, "K": 2, "summary": ", the", "utterance": "it's not in Papa's study."}
+{"id": 239, "K": 2, "summary": ", you", "utterance": "it's not in Papa's study."}
 {"id": 240, "K": 2, "summary": ", you", "utterance": "it's under the taperecorder."}
 {"id": 241, "K": 2, "summary": ", a", "utterance": "the taperecorder."}
 {"id": 242, "K": 2, "summary": ", ,", "utterance": "I'm sorry."}
-{"id": 243, "K": 2, "summary": ", ,", "utterance": "it's not."}
-{"id": 244, "K": 2, "summary": ", \"", "utterance": "it's beside the taperecorder."}
-{"id": 245, "K": 2, "summary": ", and", "utterance": "beside the taperecorder."}
-{"id": 246, "K": 2, "summary": ", a", "utterance": "that one."}
-{"id": 247, "K": 2, "summary": ", ,", "utterance": "that one."}
-{"id": 248, "K": 2, "summary": ", ,", "utterance": "no the big stool."}
+{"id": 243, "K": 2, "summary": ", \"", "utterance": "it's not."}
+{"id": 244, "K": 2, "summary": ", a", "utterance": "it's beside the taperecorder."}
+{"id": 245, "K": 2, "summary": ", ,", "utterance": "beside the taperecorder."}
+{"id": 246, "K": 2, "summary": ", ,", "utterance": "that one."}
+{"id": 247, "K": 2, "summary": ", \"", "utterance": "that one."}
+{"id": 248, "K": 2, "summary": ", \"", "utterance": "no the big stool."}
 {"id": 249, "K": 2, "summary": ", which", "utterance": "like this one."}
-{"id": 250, "K": 2, "summary": ", and", "utterance": "the big stool like I'm sitting on."}
-{"id": 251, "K": 2, "summary": ", ,", "utterance": "Eve stool."}
+{"id": 250, "K": 2, "summary": ", the", "utterance": "the big stool like I'm sitting on."}
+{"id": 251, "K": 2, "summary": ", \"", "utterance": "Eve stool."}
 {"id": 252, "K": 2, "summary": ", ,", "utterance": "right by the taperecorder."}
-{"id": 253, "K": 2, "summary": ", ,", "utterance": "right taperecorder."}
-{"id": 254, "K": 2, "summary": ", ,", "utterance": "the big stool."}
+{"id": 253, "K": 2, "summary": ", \"", "utterance": "right taperecorder."}
+{"id": 254, "K": 2, "summary": ", a", "utterance": "the big stool."}
 {"id": 255, "K": 2, "summary": ", ,", "utterance": "big xxx stool."}
-{"id": 256, "K": 2, "summary": ", by", "utterance": "by taperecorder."}
-{"id": 257, "K": 2, "summary": ", ,", "utterance": "that one."}
-{"id": 258, "K": 2, "summary": ", that", "utterance": "that a one."}
+{"id": 256, "K": 2, "summary": ", ,", "utterance": "by taperecorder."}
+{"id": 257, "K": 2, "summary": ", which", "utterance": "that one."}
+{"id": 258, "K": 2, "summary": ", ,", "utterance": "that a one."}
 {"id": 259, "K": 2, "summary": ", the", "utterance": "the banjo."}
 {"id": 260, "K": 2, "summary": ", ,", "utterance": "I know it's your banjo."}
-{"id": 261, "K": 2, "summary": ", ,", "utterance": "come back."}
+{"id": 261, "K": 2, "summary": ", \"", "utterance": "come back."}
 {"id": 262, "K": 2, "summary": ". .", "utterance": "are you gonna sit down on the stool?"}
 {"id": 263, "K": 2, "summary": ", ,", "utterance": "Eve sit down."}
 {"id": 264, "K": 2, "summary": ", ,", "utterance": "well this is my stool."}
 {"id": 265, "K": 2, "summary": ", you", "utterance": "you sit on the other side."}
-{"id": 266, "K": 2, "summary": ", \"", "utterance": "Mommy stool."}
+{"id": 266, "K": 2, "summary": ", ,", "utterance": "Mommy stool."}
 {"id": 267, "K": 2, "summary": ", this", "utterance": "this is Mommy's stool right."}
 {"id": 268, "K": 2, "summary": ". .", "utterance": "Eve sit down 'nother..."}
 {"id": 269, "K": 2, "summary": ", ,", "utterance": "Eve came back."}
 {"id": 270, "K": 2, "summary": ", ,", "utterance": "Eve came back."}
 {"id": 271, "K": 2, "summary": ". .", "utterance": "you came back?"}
 {"id": 272, "K": 2, "summary": ", ,", "utterance": "Eve tapioca."}
-{"id": 273, "K": 2, "summary": ", the", "utterance": "that's right."}
+{"id": 273, "K": 2, "summary": ", ,", "utterance": "that's right."}
 {"id": 274, "K": 2, "summary": ", you", "utterance": "you're gonna have some for lunch."}
 {"id": 275, "K": 2, "summary": ", you", "utterance": "it's an orange peel."}
-{"id": 276, "K": 2, "summary": ", a", "utterance": "orange peel."}
+{"id": 276, "K": 2, "summary": ", ,", "utterance": "orange peel."}
 {"id": 277, "K": 2, "summary": ", ,", "utterance": "Mommy's gonna make a goodie."}
 {"id": 278, "K": 2, "summary": ", ,", "utterance": "make cookie."}
-{"id": 279, "K": 2, "summary": ", \"", "utterance": "make a goodie."}
+{"id": 279, "K": 2, "summary": ", ,", "utterance": "make a goodie."}
 {"id": 280, "K": 2, "summary": ", ,", "utterance": "that's more orange peel."}
-{"id": 281, "K": 2, "summary": ", make", "utterance": "make a gookie."}
-{"id": 282, "K": 2, "summary": ", \"", "utterance": "goodie uhhuh."}
+{"id": 281, "K": 2, "summary": ", ,", "utterance": "make a gookie."}
+{"id": 282, "K": 2, "summary": ", ,", "utterance": "goodie uhhuh."}
 {"id": 283, "K": 2, "summary": ", ,", "utterance": "Eve sit bottom."}
 {"id": 284, "K": 2, "summary": ". .", "utterance": "you sit on your bottom?"}
 {"id": 285, "K": 2, "summary": ", ,", "utterance": "Mommy sit bottom."}
 {"id": 286, "K": 2, "summary": ", ,", "utterance": "Mommy's sitting on her bottom."}
 {"id": 287, "K": 2, "summary": ", the", "utterance": "the cooker."}
 {"id": 288, "K": 2, "summary": ". .", "utterance": "that's the stove but you don't touch the stove..."}
-{"id": 289, "K": 2, "summary": ", and", "utterance": "that's part of the stove."}
+{"id": 289, "K": 2, "summary": ", a", "utterance": "that's part of the stove."}
 {"id": 290, "K": 2, "summary": ", that", "utterance": "that's another part of the stove."}
 {"id": 291, "K": 2, "summary": ". .", "utterance": "what's that?"}
-{"id": 292, "K": 2, "summary": "\"I", "utterance": "xxx hot."}
+{"id": 292, "K": 2, "summary": ", ,", "utterance": "xxx hot."}
 {"id": 293, "K": 2, "summary": ". .", "utterance": "it is hot..."}
 {"id": 294, "K": 2, "summary": ". .", "utterance": "what's that?"}
 {"id": 295, "K": 2, "summary": ", ,", "utterance": "came back."}
 {"id": 296, "K": 2, "summary": ". .", "utterance": "what's that?"}
-{"id": 297, "K": 2, "summary": ", a", "utterance": "came back."}
+{"id": 297, "K": 2, "summary": ", which", "utterance": "came back."}
 {"id": 298, "K": 2, "summary": ", \"", "utterance": "captain Bob."}
 {"id": 299, "K": 2, "summary": ". .", "utterance": "captain Bob?"}
-{"id": 300, "K": 2, "summary": ", which", "utterance": "will you please sit on your stool."}
+{"id": 300, "K": 2, "summary": ", ,", "utterance": "will you please sit on your stool."}
 {"id": 301, "K": 2, "summary": ", you", "utterance": "you're in my way."}
-{"id": 302, "K": 2, "summary": ", ,", "utterance": "please sit on your stool."}
+{"id": 302, "K": 2, "summary": ", and", "utterance": "please sit on your stool."}
 {"id": 303, "K": 2, "summary": ", \"", "utterance": "on stool Mommy way."}
-{"id": 304, "K": 2, "summary": ", you", "utterance": "you're in my way."}
-{"id": 305, "K": 2, "summary": ", and", "utterance": "yes put your foot on your own stool."}
-{"id": 306, "K": 2, "summary": ", a", "utterance": "on your own stool."}
-{"id": 307, "K": 2, "summary": ", ,", "utterance": "own stool."}
-{"id": 308, "K": 2, "summary": ", ,", "utterance": "that's right."}
+{"id": 304, "K": 2, "summary": ", \"", "utterance": "you're in my way."}
+{"id": 305, "K": 2, "summary": ", ,", "utterance": "yes put your foot on your own stool."}
+{"id": 306, "K": 2, "summary": ", ,", "utterance": "on your own stool."}
+{"id": 307, "K": 2, "summary": ", \"", "utterance": "own stool."}
+{"id": 308, "K": 2, "summary": ", where", "utterance": "that's right."}
 {"id": 309, "K": 2, "summary": ", this", "utterance": "this is my stool and that belongs to you."}
 {"id": 310, "K": 2, "summary": ", ,", "utterance": "Mommy help."}
 {"id": 311, "K": 2, "summary": ". .", "utterance": "what do you want?"}
@@ -314,17 +314,17 @@
 {"id": 313, "K": 2, "summary": ". .", "utterance": "help you with your water?"}
 {"id": 314, "K": 2, "summary": ", ,", "utterance": "Eve help."}
 {"id": 315, "K": 2, "summary": ", ,", "utterance": "Eve help."}
-{"id": 316, "K": 2, "summary": ", if", "utterance": "you can get down by yourself."}
+{"id": 316, "K": 2, "summary": ", you", "utterance": "you can get down by yourself."}
 {"id": 317, "K": 2, "summary": ", ,", "utterance": "big girl."}
 {"id": 318, "K": 2, "summary": ", ,", "utterance": "yes you did."}
-{"id": 319, "K": 2, "summary": ", which", "utterance": "all by yourself."}
+{"id": 319, "K": 2, "summary": ", a", "utterance": "all by yourself."}
 {"id": 320, "K": 2, "summary": ", ,", "utterance": "big self."}
 {"id": 321, "K": 2, "summary": ", ,", "utterance": "by yourself."}
 {"id": 322, "K": 2, "summary": ", ,", "utterance": "Mommy sit Eve stool."}
 {"id": 323, "K": 2, "summary": ", ,", "utterance": "Mommy sit Eve stool."}
 {"id": 324, "K": 2, "summary": ", \"", "utterance": "I'm not sitting on your stool."}
-{"id": 325, "K": 2, "summary": ", and", "utterance": "I'm not on your stool."}
-{"id": 326, "K": 2, "summary": ", my", "utterance": "my Eve stool."}
+{"id": 325, "K": 2, "summary": ", ,", "utterance": "I'm not on your stool."}
+{"id": 326, "K": 2, "summary": ", \"", "utterance": "my Eve stool."}
 {"id": 327, "K": 2, "summary": ". .", "utterance": "oh my foot?"}
 {"id": 328, "K": 2, "summary": ". .", "utterance": "you want me to move my foot?"}
 {"id": 329, "K": 2, "summary": ". .", "utterance": "what are you doing?"}
@@ -333,53 +333,53 @@
 {"id": 332, "K": 2, "summary": ", ,", "utterance": "Eve hand pocket."}
 {"id": 333, "K": 2, "summary": ", you", "utterance": "oh your hand's in your pocket."}
 {"id": 334, "K": 2, "summary": ", ,", "utterance": "Eve puzzle."}
-{"id": 335, "K": 2, "summary": ", which", "utterance": "that's your puzzle."}
+{"id": 335, "K": 2, "summary": ", ,", "utterance": "that's your puzzle."}
 {"id": 336, "K": 2, "summary": ", ,", "utterance": "Mommy find Eve puzzle."}
 {"id": 337, "K": 2, "summary": ", ,", "utterance": "want me to find the rest of it."}
 {"id": 338, "K": 2, "summary": ". .", "utterance": "is it in the toy box?"}
-{"id": 339, "K": 2, "summary": ", a", "utterance": "well we'll see if it's in the toy box."}
+{"id": 339, "K": 2, "summary": ", \"", "utterance": "well we'll see if it's in the toy box."}
 {"id": 340, "K": 2, "summary": ", the", "utterance": "there's another one."}
-{"id": 341, "K": 2, "summary": ", and", "utterance": "in the toy xxx box."}
+{"id": 341, "K": 2, "summary": ", which", "utterance": "in the toy xxx box."}
 {"id": 342, "K": 2, "summary": ", ,", "utterance": "toy box."}
 {"id": 343, "K": 2, "summary": ", ,", "utterance": "xxx Becky puzzle."}
 {"id": 344, "K": 2, "summary": ", ,", "utterance": "no that's not Becky's puzzle."}
 {"id": 345, "K": 2, "summary": ", which", "utterance": "that's Eve's puzzle."}
 {"id": 346, "K": 2, "summary": ", ,", "utterance": "Becky have puzzle."}
-{"id": 347, "K": 2, "summary": ", which", "utterance": "that's right."}
-{"id": 348, "K": 2, "summary": ", ,", "utterance": "Becky's puzzle's at home."}
-{"id": 349, "K": 2, "summary": ", :", "utterance": "came back."}
-{"id": 350, "K": 2, "summary": ", a", "utterance": "came back."}
+{"id": 347, "K": 2, "summary": ", ,", "utterance": "that's right."}
+{"id": 348, "K": 2, "summary": ", \"", "utterance": "Becky's puzzle's at home."}
+{"id": 349, "K": 2, "summary": ", a", "utterance": "came back."}
+{"id": 350, "K": 2, "summary": ", \"", "utterance": "came back."}
 {"id": 351, "K": 2, "summary": ", which", "utterance": "came back."}
 {"id": 352, "K": 2, "summary": ", ,", "utterance": "came back."}
 {"id": 353, "K": 2, "summary": ", ,", "utterance": "Eve fix Eve puzzle."}
 {"id": 354, "K": 2, "summary": ". .", "utterance": "you fixed your puzzle?"}
 {"id": 355, "K": 2, "summary": ". .", "utterance": "why don't you try again?"}
 {"id": 356, "K": 2, "summary": ", you", "utterance": "you put them in the holes."}
-{"id": 357, "K": 2, "summary": ", a", "utterance": "put the pieces in the holes."}
+{"id": 357, "K": 2, "summary": ", ,", "utterance": "put the pieces in the holes."}
 {"id": 358, "K": 2, "summary": ", the", "utterance": "piece a hole."}
 {"id": 359, "K": 2, "summary": ", ,", "utterance": "Eve horsie."}
 {"id": 360, "K": 2, "summary": ". .", "utterance": "you're a horsie?"}
 {"id": 361, "K": 2, "summary": ". .", "utterance": "what's your name when you're a horsie?"}
 {"id": 362, "K": 2, "summary": ", ,", "utterance": "Eve Clip clop."}
-{"id": 363, "K": 2, "summary": ", and", "utterance": "you're Clip clop when you're a horsie."}
-{"id": 364, "K": 2, "summary": ", where", "utterance": "that's right."}
+{"id": 363, "K": 2, "summary": ", \"", "utterance": "you're Clip clop when you're a horsie."}
+{"id": 364, "K": 2, "summary": ", and", "utterance": "that's right."}
 {"id": 365, "K": 2, "summary": ", you", "utterance": "you be a horsie and run fast."}
 {"id": 366, "K": 2, "summary": ", ,", "utterance": "Eve horsie."}
 {"id": 367, "K": 2, "summary": ", ,", "utterance": "yes you are a horsie."}
 {"id": 368, "K": 2, "summary": ", ,", "utterance": "Eve Clip clop."}
 {"id": 369, "K": 2, "summary": ", you", "utterance": "you're Clip clop."}
-{"id": 370, "K": 2, "summary": ", ,", "utterance": "you were running fast."}
-{"id": 371, "K": 2, "summary": ", :", "utterance": "xxx came back."}
+{"id": 370, "K": 2, "summary": ", you", "utterance": "you were running fast."}
+{"id": 371, "K": 2, "summary": "\"I", "utterance": "xxx came back."}
 {"id": 372, "K": 2, "summary": ", ,", "utterance": "oh I'm not sure."}
-{"id": 373, "K": 2, "summary": ", ,", "utterance": "let me see."}
-{"id": 374, "K": 2, "summary": ", the", "utterance": "there's a man on it yes."}
+{"id": 373, "K": 2, "summary": ", {", "utterance": "let me see."}
+{"id": 374, "K": 2, "summary": ", \"", "utterance": "there's a man on it yes."}
 {"id": 375, "K": 2, "summary": ", this", "utterance": "this is a coin."}
 {"id": 376, "K": 2, "summary": ", a", "utterance": "a coin."}
 {"id": 377, "K": 2, "summary": ", a", "utterance": "a baseball coin."}
 {"id": 378, "K": 2, "summary": ", the", "utterance": "picture of a man mhm."}
 {"id": 379, "K": 2, "summary": ". .", "utterance": "why don't you put the man in your pocket?"}
-{"id": 380, "K": 2, "summary": ", put", "utterance": "put the man in your pocket."}
-{"id": 381, "K": 2, "summary": ", {", "utterance": "xxx pocket."}
+{"id": 380, "K": 2, "summary": ", ,", "utterance": "put the man in your pocket."}
+{"id": 381, "K": 2, "summary": ", \"", "utterance": "xxx pocket."}
 {"id": 382, "K": 2, "summary": ", ,", "utterance": "yeah put him in your pocket."}
 {"id": 383, "K": 2, "summary": ", the", "utterance": "xxx came a man."}
 {"id": 384, "K": 2, "summary": ". .", "utterance": "here comes the man?"}
@@ -387,54 +387,54 @@
 {"id": 386, "K": 2, "summary": ", ,", "utterance": "came a man."}
 {"id": 387, "K": 2, "summary": ", ,", "utterance": "baseball coin."}
 {"id": 388, "K": 2, "summary": ", ,", "utterance": "baseball coin."}
-{"id": 389, "K": 2, "summary": ", ,", "utterance": "baseball coin."}
-{"id": 390, "K": 2, "summary": ", ,", "utterance": "came back."}
-{"id": 391, "K": 2, "summary": ", \"", "utterance": "came back."}
-{"id": 392, "K": 2, "summary": ", a", "utterance": "came back."}
+{"id": 389, "K": 2, "summary": ", a", "utterance": "baseball coin."}
+{"id": 390, "K": 2, "summary": ", :", "utterance": "came back."}
+{"id": 391, "K": 2, "summary": ", :", "utterance": "came back."}
+{"id": 392, "K": 2, "summary": ", ,", "utterance": "came back."}
 {"id": 393, "K": 2, "summary": ", a", "utterance": "man baseball coin."}
-{"id": 394, "K": 2, "summary": ", a", "utterance": "baseball coin."}
+{"id": 394, "K": 2, "summary": ", \"", "utterance": "baseball coin."}
 {"id": 395, "K": 2, "summary": ", ,", "utterance": "baseball coin."}
-{"id": 396, "K": 2, "summary": ", a", "utterance": "baseball coin."}
+{"id": 396, "K": 2, "summary": ", ,", "utterance": "baseball coin."}
 {"id": 397, "K": 2, "summary": ", ,", "utterance": "baseball coin."}
 {"id": 398, "K": 2, "summary": ", ,", "utterance": "baseball coin."}
 {"id": 399, "K": 2, "summary": ", ,", "utterance": "baseball coin."}
 {"id": 400, "K": 2, "summary": ", ,", "utterance": "baseball coin."}
-{"id": 401, "K": 2, "summary": ", ,", "utterance": "baseball coin."}
-{"id": 402, "K": 2, "summary": ", \"", "utterance": "baseball coin."}
+{"id": 401, "K": 2, "summary": ", {", "utterance": "baseball coin."}
+{"id": 402, "K": 2, "summary": ", ,", "utterance": "baseball coin."}
 {"id": 403, "K": 2, "summary": ", ,", "utterance": "baseball coin."}
 {"id": 404, "K": 2, "summary": ", :", "utterance": "came back."}
 {"id": 405, "K": 2, "summary": ". .", "utterance": "xxx came..."}
-{"id": 406, "K": 2, "summary": ", \"", "utterance": "there sugar Fraser."}
-{"id": 407, "K": 2, "summary": ", a", "utterance": "there sugar Fraser."}
+{"id": 406, "K": 2, "summary": ", ,", "utterance": "there sugar Fraser."}
+{"id": 407, "K": 2, "summary": ", \"", "utterance": "there sugar Fraser."}
 {"id": 408, "K": 2, "summary": ", ,", "utterance": "well you ask Fraser if he'd like some more coffee."}
 {"id": 409, "K": 2, "summary": ", ,", "utterance": "Fraser more coffee."}
 {"id": 410, "K": 2, "summary": ". .", "utterance": "is there more coffee?"}
 {"id": 411, "K": 2, "summary": ". .", "utterance": "would he like sugar in his coffee?"}
 {"id": 412, "K": 2, "summary": ", ,", "utterance": "Fraser more coffee."}
-{"id": 413, "K": 2, "summary": ", ,", "utterance": "yes I'll give him more coffee."}
+{"id": 413, "K": 2, "summary": ", :", "utterance": "yes I'll give him more coffee."}
 {"id": 414, "K": 2, "summary": ", you", "utterance": "you get your sugar bowl."}
-{"id": 415, "K": 2, "summary": ", the", "utterance": "you sugar bowl."}
-{"id": 416, "K": 2, "summary": ", your", "utterance": "your sugar bowl."}
+{"id": 415, "K": 2, "summary": ", you", "utterance": "you sugar bowl."}
+{"id": 416, "K": 2, "summary": ", the", "utterance": "your sugar bowl."}
 {"id": 417, "K": 2, "summary": ", ,", "utterance": "Fraser napkin."}
-{"id": 418, "K": 2, "summary": ", \"", "utterance": "that's his napkin."}
+{"id": 418, "K": 2, "summary": ", ,", "utterance": "that's his napkin."}
 {"id": 419, "K": 2, "summary": ", ,", "utterance": "Eve xxx pencil."}
 {"id": 420, "K": 2, "summary": ". .", "utterance": "is this my pencil?"}
-{"id": 421, "K": 2, "summary": ", :", "utterance": "xxx pencil."}
-{"id": 422, "K": 2, "summary": ", ,", "utterance": "Eve xxx pencil."}
+{"id": 421, "K": 2, "summary": "\"The", "utterance": "xxx pencil."}
+{"id": 422, "K": 2, "summary": ", \"", "utterance": "Eve xxx pencil."}
 {"id": 423, "K": 2, "summary": ". .", "utterance": "where is your pencil?"}
 {"id": 424, "K": 2, "summary": ", ,", "utterance": "xxx table."}
 {"id": 425, "K": 2, "summary": ". .", "utterance": "Eve would you bring me Fraser's cup?"}
 {"id": 426, "K": 2, "summary": ", you", "utterance": "you bring me Fraser's cup and we'll give him some more coffee."}
 {"id": 427, "K": 2, "summary": ", ,", "utterance": "bring cup."}
-{"id": 428, "K": 2, "summary": ", ,", "utterance": "bring cup."}
+{"id": 428, "K": 2, "summary": ", a", "utterance": "bring cup."}
 {"id": 429, "K": 2, "summary": ", ,", "utterance": "thank you."}
 {"id": 430, "K": 2, "summary": ", ,", "utterance": "sugar coffee."}
 {"id": 431, "K": 2, "summary": ", he", "utterance": "he'll put sugar in his coffee."}
 {"id": 432, "K": 2, "summary": ", ,", "utterance": "Eve tapioca."}
 {"id": 433, "K": 2, "summary": ", you", "utterance": "you can have tapioca at lunch time."}
-{"id": 434, "K": 2, "summary": ", ,", "utterance": "it's not ready yet."}
+{"id": 434, "K": 2, "summary": ", you", "utterance": "it's not ready yet."}
 {"id": 435, "K": 2, "summary": ", ,", "utterance": "ready yet not ready yet."}
-{"id": 436, "K": 2, "summary": ", it", "utterance": "it's not ready yet."}
+{"id": 436, "K": 2, "summary": ", \"", "utterance": "it's not ready yet."}
 {"id": 437, "K": 2, "summary": ", ,", "utterance": "jump Mommy kitchen."}
 {"id": 438, "K": 2, "summary": ". .", "utterance": "that was jump in Mommy's kitchen!"}
 {"id": 439, "K": 2, "summary": ", '", "utterance": "'nother taperecorder."}
@@ -442,7 +442,7 @@
 {"id": 441, "K": 2, "summary": ", ,", "utterance": "one two three four five."}
 {"id": 442, "K": 2, "summary": ", ,", "utterance": "very very good."}
 {"id": 443, "K": 2, "summary": ", ,", "utterance": "one two three four five."}
-{"id": 444, "K": 2, "summary": ", ,", "utterance": "one two three five."}
+{"id": 444, "K": 2, "summary": ", one", "utterance": "one two three five."}
 {"id": 445, "K": 2, "summary": ", ,", "utterance": "seven eight nine ten."}
 {"id": 446, "K": 2, "summary": ", ,", "utterance": "one two three four."}
 {"id": 447, "K": 2, "summary": ", ,", "utterance": "one two four."}
@@ -455,15 +455,15 @@
 {"id": 454, "K": 2, "summary": ", move", "utterance": "move your highchair."}
 {"id": 455, "K": 2, "summary": ", move", "utterance": "move a highchair."}
 {"id": 456, "K": 2, "summary": ", move", "utterance": "move the highchair."}
-{"id": 457, "K": 2, "summary": ", and", "utterance": "xxx look at the highchair."}
+{"id": 457, "K": 2, "summary": ", ,", "utterance": "xxx look at the highchair."}
 {"id": 458, "K": 2, "summary": ". .", "utterance": "would you like some cheese?"}
 {"id": 459, "K": 2, "summary": ", ,", "utterance": "want tapioca."}
 {"id": 460, "K": 2, "summary": ", you", "utterance": "you will have tapioca in just a second."}
-{"id": 461, "K": 2, "summary": ", ,", "utterance": "it's cheese."}
-{"id": 462, "K": 2, "summary": ", and", "utterance": "oh I'm sorry there's a piece of paper on it."}
+{"id": 461, "K": 2, "summary": ", you", "utterance": "it's cheese."}
+{"id": 462, "K": 2, "summary": ", you", "utterance": "oh I'm sorry there's a piece of paper on it."}
 {"id": 463, "K": 2, "summary": ", a", "utterance": "a piece of paper."}
 {"id": 464, "K": 2, "summary": ". .", "utterance": "it probably didn't taste very good did it?"}
-{"id": 465, "K": 2, "summary": ", you", "utterance": "there was paper on your cheese."}
+{"id": 465, "K": 2, "summary": ", the", "utterance": "there was paper on your cheese."}
 {"id": 466, "K": 2, "summary": ", the", "utterance": "there it's alright now."}
 {"id": 467, "K": 2, "summary": ", ,", "utterance": "oh paper cheese."}
 {"id": 468, "K": 2, "summary": ". .", "utterance": "what sweetie?"}
@@ -475,7 +475,7 @@
 {"id": 474, "K": 2, "summary": ", ,", "utterance": "Eve lunch."}
 {"id": 475, "K": 2, "summary": ", a", "utterance": "yes your lunch."}
 {"id": 476, "K": 2, "summary": ". .", "utterance": "more what?"}
-{"id": 477, "K": 2, "summary": ", ,", "utterance": "more tapioca."}
+{"id": 477, "K": 2, "summary": ", the", "utterance": "more tapioca."}
 {"id": 478, "K": 2, "summary": ", ,", "utterance": "I'll give you more tapioca."}
 {"id": 479, "K": 2, "summary": ", ,", "utterance": "I'll be right back."}
 {"id": 480, "K": 2, "summary": ". .", "utterance": "is that nice tapioca?"}
@@ -489,12 +489,12 @@
 {"id": 488, "K": 2, "summary": ". .", "utterance": "Mommy's what?"}
 {"id": 489, "K": 2, "summary": ". .", "utterance": "what is it?"}
 {"id": 490, "K": 2, "summary": ", ,", "utterance": "Mommy napkin."}
-{"id": 491, "K": 2, "summary": ", the", "utterance": "I'm gonna give that to Fraser."}
-{"id": 492, "K": 2, "summary": ", the", "utterance": "it's Fraser's napkin."}
-{"id": 493, "K": 2, "summary": ", a", "utterance": "xxx Fraser napkin."}
+{"id": 491, "K": 2, "summary": ", \"", "utterance": "I'm gonna give that to Fraser."}
+{"id": 492, "K": 2, "summary": ", a", "utterance": "it's Fraser's napkin."}
+{"id": 493, "K": 2, "summary": ", \"", "utterance": "xxx Fraser napkin."}
 {"id": 494, "K": 2, "summary": ", ,", "utterance": "sugar there."}
-{"id": 495, "K": 2, "summary": ", ,", "utterance": "oh thank you very much."}
-{"id": 496, "K": 2, "summary": ", {", "utterance": "thank you."}
+{"id": 495, "K": 2, "summary": ", the", "utterance": "oh thank you very much."}
+{"id": 496, "K": 2, "summary": ", ,", "utterance": "thank you."}
 {"id": 497, "K": 2, "summary": ", ,", "utterance": "Eve hi."}
 {"id": 498, "K": 2, "summary": ", ,", "utterance": "Eve hi."}
 {"id": 499, "K": 2, "summary": ". .", "utterance": "did you tell him hi?"}
