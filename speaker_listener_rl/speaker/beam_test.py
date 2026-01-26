@@ -29,7 +29,7 @@ def main():
         early_stopping=True,
         no_repeat_ngram_size=3,   
         length_penalty=-20,       # <1.0 favors shorter outputs, >1.0 favors longer
-        num_return_sequences=3,   # return top-N beams
+        num_return_sequences=3,
         do_sample=False,
     )
 
