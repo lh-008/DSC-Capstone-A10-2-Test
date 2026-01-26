@@ -116,7 +116,7 @@ def train_dpo(
 
     for e in range(epochs): #eventually use e to alter the max_new_tokens
         prompts, chosen, rejected = [], [], []
-        kept, skipeped = 0, 0
+        kept, skipped = 0, 0
 
         for example in loader:
             utterance = example['utterance'] #change, utterance is only here for CHILDES dataset
@@ -199,7 +199,7 @@ def train_dpo(
             if prompts:
                 pass
 
-            print(f"[epoch {ep}] kept_pairs={kept} skipped_lowgap={skipped} steps={global_step}")
+            print(f"[epoch {e}] kept_pairs={kept} skipped_lowgap={skipped} steps={global_step}")
             
             os.makedirs(output_path, exist_ok=True)
             policy.save_pretrained(output_path)
@@ -214,12 +214,12 @@ def parse_args():
     parser.add_argument("--input_path", type=str, required=True)
     parser.add_argument("--output_path", type=str, required=True)
 
-    parser.add_argument("--epochs", type=int, default=1)
-    parser.add_argument("--batch_size", type=int, default=4)
+    parser.add_argument("--epochs", type=int, default=5)
+    parser.add_argument("--batch_size", type=int, default=16)
     parser.add_argument("--grad_accum", type=int, default=8)
     parser.add_argument("--lr", type=float, default=1e-5)
     parser.add_argument("--beta", type=float, default=0.1)
-    parser.add_argument("--max_length", type=int, default=1024)
+    parser.add_argument("--max_length", type=int, default=32)
 
     parser.add_argument("--top_p", type=float, default=0.9)
     parser.add_argument("--temperature", type=float, default=0.7)
