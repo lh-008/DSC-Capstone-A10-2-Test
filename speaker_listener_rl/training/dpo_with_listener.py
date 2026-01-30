@@ -1,11 +1,16 @@
 import argparse
 import os
+import sys
+from pathlib import Path
 
 import torch
 import torch.nn.functional as F
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-from data.dataloader_childes import ChildesUtteranceLoader
+# Add parent directory to path so we can import from data, listener, utils
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from data.dataloader_wiki import SimpleWikiPassageLoader
 from listener.listener.bertscore_listener import BERTScoreListener
 from utils.utils import generate_summary, jaccard_ngrams, make_prompt
 
@@ -53,7 +58,9 @@ def sequential_log_prob(model, ids, attn_mask, labels):
     valid = targets != -100
 
     log_probs = F.log_softmax(logits, dim=-1)
-    token_log_probs = log_probs.gather(-1, targets.unsqueeze(-1)).squeeze(-1)
+    targets_safe = targets.clone()
+    targets_safe[~valid] = 0
+    token_log_probs = log_probs.gather(-1, targets_safe.unsqueeze(-1)).squeeze(-1)
     token_log_probs = token_log_probs * valid
     return token_log_probs.sum(dim=1)
 
@@ -109,7 +116,7 @@ def train_dpo(
 
     optimizer = torch.optim.AdamW(policy.parameters(), lr=lr)
 
-    loader = ChildesUtteranceLoader(path=input_path)
+    loader = SimpleWikiPassageLoader(path=input_path, limit=500) #set limit to 200 to test small sample
 
     policy.train()
     global_step = 0
@@ -119,9 +126,9 @@ def train_dpo(
         kept, skipped = 0, 0
 
         for example in loader:
-            utterance = example['utterance'] #change, utterance is only here for CHILDES dataset
+            utterance = example['passage'] #change, utterance is only here for CHILDES dataset
             prompt = make_prompt(utterance)
-            reference = utterance #should change if wnat to use a different reference
+            reference_text = utterance #should change if wnat to use a different reference
 
             seed_a = torch.randint(0, 2**31 - 1, (1,)).item()
             seed_b = torch.randint(0, 2**31 - 1, (1,)).item()
@@ -155,9 +162,9 @@ def train_dpo(
                 if similarity <= max_pair_similarity:
                     break
 
-            preferred = listener.prefer(candidate_a, candidate_b, reference)
-            score_a = float[preferred['score_a']]
-            score_b = float[preferred['score_b']]
+            preferred = listener.prefer(candidate_a, candidate_b, reference_text)
+            score_a = float(preferred['score_a'])
+            score_b = float(preferred['score_b'])
             gap = abs(score_a - score_b)
 
             if gap < score_gap_min:
@@ -194,23 +201,27 @@ def train_dpo(
                     optimizer.step()
                     optimizer.zero_grad()
 
+                    optimizer_steps = global_step // grad_accum
+                    save_interval = 100  
+                    if optimizer_steps % save_interval == 0:
+                        os.makedirs(output_path, exist_ok=True)
+                        policy.save_pretrained(output_path)
+                        tokenizer.save_pretrained(output_path)
+                        print(f"[saved] optimizer_steps={optimizer_steps} -> {output_path}")
+
                 prompts, chosen, rejected = [], [], []
 
             if prompts:
                 pass
 
-            print(f"[epoch {e}] kept_pairs={kept} skipped_lowgap={skipped} steps={global_step}")
-            
-            os.makedirs(output_path, exist_ok=True)
-            policy.save_pretrained(output_path)
-            tokenizer.save_pretrained(output_path)
-            print(f"[done] saved policy -> {output_path}")
+            if (global_step+1) % 10 == 0:
+                print(f"[epoch {e}] kept_pairs={kept} skipped_lowgap={skipped} steps={global_step}")
 
 def parse_args():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--policy_model", type=str, required=True)
-    parser.add_argument("--reference_model", type=str, required=True)
+    parser.add_argument("--policy_model", type=str, required=True, default = 'gpt2')
+    parser.add_argument("--reference_model", type=str, required=True, default = 'gpt2')
     parser.add_argument("--input_path", type=str, required=True)
     parser.add_argument("--output_path", type=str, required=True)
 
