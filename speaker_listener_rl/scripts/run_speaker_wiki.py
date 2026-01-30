@@ -49,7 +49,6 @@ def main():
     STRICT_LIMIT = False
     # BUFFER = 10  # only used if STRICT_LIMIT=False (allows going beyond K, then penalize)
 
-    NUM_BEAMS = 4
     LENGTH_PENALTY = 2.0 
 
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
