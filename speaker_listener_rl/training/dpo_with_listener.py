@@ -116,7 +116,7 @@ def train_dpo(
 
     optimizer = torch.optim.AdamW(policy.parameters(), lr=lr)
 
-    loader = SimpleWikiPassageLoader(path=input_path, limit=500) #set limit to 200 to test small sample
+    loader = SimpleWikiPassageLoader(path=input_path, limit=2500) #set limit to 200 to test small sample
 
     policy.train()
     global_step = 0
