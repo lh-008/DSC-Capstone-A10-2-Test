@@ -1,2 +1,2 @@
 #Ignore model checkpoints
-./speaker_listener_rl/models
+/speaker_listener_rl/models
