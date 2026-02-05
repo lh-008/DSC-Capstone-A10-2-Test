@@ -7,6 +7,8 @@ import torch
 import torch.nn.functional as F
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
+import wandb #using wandb 
+
 # Add parent directory to path so we can import from data, listener, utils
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -99,9 +101,9 @@ def dpo_loss(policy, ref, batch, epoch, max_epochs, alpha0, *, beta): #is a Batc
         len_adv = (len_r - len_c) / (len_r + len_c + float('1e-8')) # float is to avoid crashes when both produce output of length 0
 
         alpha_k = 2.0 #default is 2.0 change later, might want to make hyperparam
-        alpha = _anneal_alpha(epoch, max_epochs, alpha0, alpha_k)
+        modded_alpha = _anneal_alpha(epoch, max_epochs, alpha0, alpha_k) #makes alpha decrease over time exponentially
 
-    logits = beta * pref_logits + alpha * len_adv #combines the preference score and length scoring
+    logits = beta * pref_logits + modded_alpha * len_adv #combines the preference score and length scoring
 
     loss = -F.logsigmoid(logits).mean() #negative log likelihood of choosing chosen over rejected
 
@@ -109,13 +111,11 @@ def dpo_loss(policy, ref, batch, epoch, max_epochs, alpha0, *, beta): #is a Batc
         "loss": float(loss.item()),
         "pref_logit_mean": float(pref_logits.mean().item()),
         "len_adv_mean": float(len_adv.mean().item()),
-        "alpha": float(alpha),
+        "alpha": float(modded_alpha),
         "len_chosen_mean": float(len_c.mean().item()),
         "len_rejected_mean": float(len_r.mean().item()),
     }
     return loss, metrics
-
-    l
 
 def train_dpo(
         *,
@@ -127,7 +127,7 @@ def train_dpo(
         batch_size, 
         grad_accum, #number of batches to accumulate gradients before taking an optimizer step
         lr,
-        alpha, #scaling for length penalty
+        alpha0, #scaling for length penalty
         beta, #strength of DPO, how much chosen is picked over rejected, higher beta more aggressive
         max_length,
         top_p,
@@ -235,7 +235,7 @@ def train_dpo(
                     batch.labels_r.to(device),
                 )
 
-                loss, metrics = dpo_loss(policy, reference, batch, e, epochs, alpha, beta=beta)
+                loss, metrics = dpo_loss(policy, reference, batch, e, epochs, alpha0, beta=beta)
                 loss.backward()
                 global_step += 1
 
@@ -268,10 +268,10 @@ def parse_args():
     parser.add_argument("--output_path", type=str, required=True)
 
     parser.add_argument("--epochs", type=int, default=5)
-    parser.add_argument("--batch_size", type=int, default=16)
-    parser.add_argument("--grad_accum", type=int, default=8)
+    parser.add_argument("--batch_size", type=int, default=16) #should bump up to 32 or 64 when we get onto GPU
+    parser.add_argument("--grad_accum", type=int, default=8) # large grad_accum training slow, might over fit, small grad_accum training can be unstable
     parser.add_argument("--lr", type=float, default=1e-5)
-    parser.add_argument("--alpha", type=float, default=0.01)
+    parser.add_argument("--alpha0", type=float, default=0.01)
     parser.add_argument("--beta", type=float, default=0.1)
     parser.add_argument("--max_length", type=int, default=32)
 
@@ -282,8 +282,8 @@ def parse_args():
     parser.add_argument("--no_repeat_ngram_size", type=int, default=0)
 
     parser.add_argument("--score_gap_min", type=float, default=0.1)
-    parser.add_argument("--max_pair_similarity", type=float, default=0.85)
-    parser.add_argument("--max_resample_tries", type=int, default=2)
+    parser.add_argument("--max_pair_similarity", type=float, default=0.80)
+    parser.add_argument("--max_resample_tries", type=int, default=4)
 
     parser.add_argument("--listener_model_type", type=str, default="bert-base-uncased")
     parser.add_argument("--listener_batch_size", type=int, default=8)
@@ -292,6 +292,23 @@ def parse_args():
 
 def main():
     args = parse_args()
+
+    #overwrite the args with wandb sweep config
+    #uncomment when running wandb sweep
+    ##########################################################
+    # wandb.init(project="telegraphic-dpo", config=vars(args))
+    # config = wandb.config
+
+    # args.lr = config.lr
+    # args.beta = config.beta #modifier for DPO preference logits
+    # args.alpha0 = config.alpha0 #initial scaling for length penalty
+    # args.score_gap_min = config.score_gap_min #min score gap for a pair to be "valid" for training
+    # args.grad_accum = config.grad_accum
+    ##########################################################
+
+    #not sure if this should be changed, not related to DPO objective
+    args.temperature = config.temperature
+    args.top_p = config.top_p
 
     train_dpo(
         policy_model=args.policy_model,
@@ -302,7 +319,7 @@ def main():
         batch_size=args.batch_size,
         grad_accum=args.grad_accum,
         lr=args.lr,
-        alpha=args.alpha,
+        alpha0=args.alpha0,
         beta=args.beta,
         max_length=args.max_length,
         top_p=args.top_p,

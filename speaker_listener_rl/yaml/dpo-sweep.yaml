@@ -1,0 +1,28 @@
+method: grid
+metric:
+  name: loss #dpo loss, might need to change to reward func
+  goal: minimize
+
+parameters:
+  learning_rate:
+    distribution: log_uniform_values
+    min: 5e-6
+    max: 1e-4
+
+  beta:
+    values: [0.05, 0.1, 0.2, 0.3]
+
+  temperature: #might not sweep over, not related to DPO strictly
+    values: [0.7, 0.9, 1.1]
+
+  top_p: #might not sweep over, not related to DPO strictly
+    values: [0.85, 0.9, 0.95]
+
+  alpha0:
+    values: [0.05, 0.1, 0.15, 0.3]
+
+  score_gap_min:
+    values: [0.0, 0.01, 0.02, 0.05]
+
+  grad_accum:
+    values: [2, 4, 8]
