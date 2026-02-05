@@ -64,17 +64,58 @@ def sequential_log_prob(model, ids, attn_mask, labels):
     token_log_probs = token_log_probs * valid
     return token_log_probs.sum(dim=1)
 
-def dpo_loss(policy, ref, batch, *, beta): #is a BatchPair
+def _completion_lengths(labels):
+    """
+    Helper that removes invalid labels
+    """
+    return (labels != -100).sum(dim=1)
+
+def _anneal_alpha(epoch, max_epochs, alpha0, k):
+    """
+    - exp: alpha0 * exp(-k * epoch/(max_epochs-1)) where k is a constant > 1, the larger it is the more extreme the penalty curve
+    """
+    if max_epochs <= 1:
+        return alpha0
+
+    t = epoch / (max_epochs - 1)  # 0 -> 1
+
+    return alpha0 * float(torch.exp(torch.tensor(-k * t)))
+
+def dpo_loss(policy, ref, batch, epoch, max_epochs, alpha0, *, beta): #is a BatchPair
     pi_chosen = sequential_log_prob(policy, batch.ids_c, batch.attn_c, batch.labels_c)
     pi_rejected = sequential_log_prob(policy, batch.ids_r, batch.attn_r, batch.labels_r)
 
+    #when frozen
     with torch.no_grad():
         ref_chosen = sequential_log_prob(ref, batch.ids_c, batch.attn_c, batch.labels_c)
         ref_rejected = sequential_log_prob(ref, batch.ids_r, batch.attn_r, batch.labels_r)
     
-    #DPO objective
-    logits = beta * ((pi_chosen - pi_rejected) - (ref_chosen - ref_rejected))
-    return -F.logsigmoid(logits).mean() #negative log likelihood of choosing chosen over rejected
+    #dpo preference objective
+    pref_logits = (pi_chosen - pi_rejected) - (ref_chosen - ref_rejected)
+
+    with torch.no_grad():
+        len_c = _completion_lengths(batch.labels_c).float() 
+        len_r = _completion_lengths(batch.labels_r).float()  
+        len_adv = (len_r - len_c) / (len_r + len_c + float('1e-8')) # float is to avoid crashes when both produce output of length 0
+
+        alpha_k = 2.0 #default is 2.0 change later, might want to make hyperparam
+        alpha = _anneal_alpha(epoch, max_epochs, alpha0, alpha_k)
+
+    logits = beta * pref_logits + alpha * len_adv #combines the preference score and length scoring
+
+    loss = -F.logsigmoid(logits).mean() #negative log likelihood of choosing chosen over rejected
+
+    metrics = {
+        "loss": float(loss.item()),
+        "pref_logit_mean": float(pref_logits.mean().item()),
+        "len_adv_mean": float(len_adv.mean().item()),
+        "alpha": float(alpha),
+        "len_chosen_mean": float(len_c.mean().item()),
+        "len_rejected_mean": float(len_r.mean().item()),
+    }
+    return loss, metrics
+
+    l
 
 def train_dpo(
         *,
@@ -86,6 +127,7 @@ def train_dpo(
         batch_size, 
         grad_accum, #number of batches to accumulate gradients before taking an optimizer step
         lr,
+        alpha, #scaling for length penalty
         beta, #strength of DPO, how much chosen is picked over rejected, higher beta more aggressive
         max_length,
         top_p,
@@ -116,7 +158,7 @@ def train_dpo(
 
     optimizer = torch.optim.AdamW(policy.parameters(), lr=lr)
 
-    loader = SimpleWikiPassageLoader(path=input_path, limit=2500) #set limit to 200 to test small sample
+    loader = SimpleWikiPassageLoader(path=input_path, limit=500) #set limit to 500 to test small sample
 
     policy.train()
     global_step = 0
@@ -193,7 +235,7 @@ def train_dpo(
                     batch.labels_r.to(device),
                 )
 
-                loss = dpo_loss(policy, reference, batch, beta=beta)
+                loss, metrics = dpo_loss(policy, reference, batch, e, epochs, alpha, beta=beta)
                 loss.backward()
                 global_step += 1
 
@@ -229,6 +271,7 @@ def parse_args():
     parser.add_argument("--batch_size", type=int, default=16)
     parser.add_argument("--grad_accum", type=int, default=8)
     parser.add_argument("--lr", type=float, default=1e-5)
+    parser.add_argument("--alpha", type=float, default=0.01)
     parser.add_argument("--beta", type=float, default=0.1)
     parser.add_argument("--max_length", type=int, default=32)
 
@@ -259,6 +302,7 @@ def main():
         batch_size=args.batch_size,
         grad_accum=args.grad_accum,
         lr=args.lr,
+        alpha=args.alpha,
         beta=args.beta,
         max_length=args.max_length,
         top_p=args.top_p,
