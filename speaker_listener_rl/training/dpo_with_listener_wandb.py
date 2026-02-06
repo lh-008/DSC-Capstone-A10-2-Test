@@ -45,8 +45,8 @@ def collate_pairs(tokenizer, prompts, chosen, rejected, *, max_length):
     tokenizer_rejected = tokenizer([p + r for p, r in zip(prompts, rejected)],
                       padding=True, return_tensors="pt", truncation=True, max_length=max_length)
 
-    labels_c = _mask_prompt_labels(tokenizer_chosen["input_ids"], prompt_lens)
-    labels_r = _mask_prompt_labels(tokenizer_rejected["input_ids"], prompt_lens)
+    labels_c = _mask_prompt_labels(tokenizer_chosen["input_ids"], prompt_lens, tokenizer.pad_token_id)
+    labels_r = _mask_prompt_labels(tokenizer_rejected["input_ids"], prompt_lens, tokenizer.pad_token_id)
 
     return PairBatch(
         tokenizer_chosen["input_ids"], tokenizer_chosen["attention_mask"], labels_c,
