@@ -26,10 +26,14 @@ class PairBatch:
     attn_r: torch.Tensor
     labels_r: torch.Tensor
 
-def _mask_prompt_labels(full_ids, prompt_lens):
+def _mask_prompt_labels(full_ids, prompt_lens, pad_token_id):
     labels = full_ids.clone()
     for i in range(labels.size(0)):
         labels[i, : int(prompt_lens[i].item())] = -100
+    
+    # Mask padding tokens as well to fix cuda error
+    labels[labels == pad_token_id] = -100
+    
     return labels
 
 def collate_pairs(tokenizer, prompts, chosen, rejected, *, max_length):
