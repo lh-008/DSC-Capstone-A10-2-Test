@@ -1,0 +1,110 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: dpo-training
+  namespace: dsc-capstone-25-26
+spec:
+  backoffLimit: 0
+  template:
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: nvidia.com/gpu.product
+                operator: In
+                values:
+                - NVIDIA-A10
+
+      initContainers:
+      - name: init-permissions
+        image: busybox
+        command: ["sh", "-c", "mkdir -p /workspace/checkpoints && chmod -R 777 /workspace"]
+        volumeMounts:
+        - mountPath: /workspace
+          name: storage-volume
+
+      containers:
+      - name: dpo-trainer
+        image: pytorch/pytorch:2.1.0-cuda11.8-cudnn8-runtime
+        workingDir: /workspace
+        command: ["/bin/bash", "-c"]
+        args:
+          - |
+            set -e
+            apt-get update && apt-get install -y git
+            
+            # Clean up if old repo exists and clone the repository
+            rm -rf /workspace/repo  
+            git clone https://github.com/banffjiang/DSC-Capstone-A10-2.git /workspace/repo
+            cd /workspace/repo
+            
+            pip install --no-cache-dir -r requirements.txt
+            
+            wandb login $WANDB_API_KEY
+            
+            python speaker_listener_rl/training/dpo_with_listener_wandb.py \
+              --wandb_project dpo-training \
+              --wandb_run_name simplewiki-run-$(date +%Y%m%d-%H%M) \
+              --policy_model gpt2 \
+              --reference_model gpt2 \
+              --input_path speaker_listener_rl/data/simple_wiki_passages.jsonl \
+              --output_path /workspace/checkpoints \
+              --epochs 5 \
+              --batch_size 16 \
+              --grad_accum 8 \
+              --lr 1e-5 \
+              --alpha 0.01 \
+              --beta 0.1 \
+              --max_length 32 \
+              --max_new_tokens 16 \
+              --top_p 0.9 \
+              --temperature 0.7 \
+              --repetition_penalty 1.0 \
+              --no_repeat_ngram_size 0 \
+              --score_gap_min 0.1 \
+              --max_pair_similarity 0.85 \
+              --max_resample_tries 2 \
+              --listener_model_type bert-base-uncased \
+              --listener_batch_size 8
+            
+            echo "checkpoints saved to /workspace/checkpoints"
+            ls -lh /workspace/checkpoints/
+        
+        env:
+        - name: WANDB_API_KEY
+          value: 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
+        - name: WANDB_PROJECT
+          value: "dpo-training"
+        - name: WANDB_MODE
+          value: "online"
+        
+        volumeMounts:
+        - mountPath: /workspace
+          name: storage-volume
+        
+        resources:
+          requests:
+            memory: "32Gi"
+            cpu: "8"
+            nvidia.com/gpu: "1"
+          limits:
+            memory: "32Gi"
+            cpu: "16"
+            nvidia.com/gpu: "1"
+
+      restartPolicy: Never
+
+      tolerations:
+      - key: nvidia.com/gpu
+        operator: Exists
+        effect: NoSchedule
+      - key: nautilus.io/issue
+        operator: Exists
+        effect: NoSchedule
+
+      volumes:
+      - name: storage-volume
+        persistentVolumeClaim:
+          claimName: dpo-storage
