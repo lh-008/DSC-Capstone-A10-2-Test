@@ -62,6 +62,11 @@ def sequential_log_prob(model, ids, attn_mask, labels):
     log_probs = F.log_softmax(logits, dim=-1)
     targets_safe = targets.clone()
     targets_safe[~valid] = 0
+    targets_safe = targets_safe.long()
+
+    vocab_size = log_probs.size(-1)
+    targets_safe = targets_safe.clamp(0, vocab_size - 1)
+
     token_log_probs = log_probs.gather(-1, targets_safe.unsqueeze(-1)).squeeze(-1)
     token_log_probs = token_log_probs * valid
     return token_log_probs.sum(dim=1)

@@ -79,6 +79,10 @@ spec:
           value: "dpo-training"
         - name: WANDB_MODE
           value: "online"
+        - name: CUDA_LAUNCH_BLOCKING
+          value: "1"
+        - name: TORCH_SHOW_CPP_STACKTRACES
+          value: "1"
         
         volumeMounts:
         - mountPath: /workspace
