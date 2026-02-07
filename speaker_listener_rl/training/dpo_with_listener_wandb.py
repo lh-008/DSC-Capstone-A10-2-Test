@@ -57,42 +57,66 @@ def sequential_log_prob(model, ids, attn_mask, labels):
     output = model(input_ids=ids, attention_mask=attn_mask, labels=labels)
     logits = output.logits[:, :-1]
     targets = labels[:, 1:]
-    valid = (targets != -100)
-    
-    log_probs = F.log_softmax(logits, dim=-1)
-    token_lp = torch.gather(log_probs, 2, targets.unsqueeze(-1)).squeeze(-1)
-    seq_lp = (token_lp * valid).sum(dim=1) / valid.sum(dim=1).clamp(min=1)
-    
-    return seq_lp
+    valid = targets != -100
 
-def dpo_loss(policy, reference, batch, current_epoch, total_epochs, alpha, beta=0.1):
-    lp_chosen = sequential_log_prob(policy, batch.ids_c, batch.attn_c, batch.labels_c)
-    lp_rejected = sequential_log_prob(policy, batch.ids_r, batch.attn_r, batch.labels_r)
-    
+    log_probs = F.log_softmax(logits, dim=-1)
+    targets_safe = targets.clone()
+    targets_safe[~valid] = 0
+    targets_safe = targets_safe.long()
+
+    vocab_size = log_probs.size(-1)
+    targets_safe = targets_safe.clamp(0, vocab_size - 1)
+
+    token_log_probs = log_probs.gather(-1, targets_safe.unsqueeze(-1)).squeeze(-1)
+    token_log_probs = token_log_probs * valid
+    return token_log_probs.sum(dim=1)
+
+def _completion_lengths(labels):
+    """
+    Helper that removes invalid labels
+    """
+    return (labels != -100).sum(dim=1)
+
+def _anneal_alpha(epoch, max_epochs, alpha0, k):
+    """
+    - exp: alpha0 * exp(-k * epoch/(max_epochs-1)) where k is a constant > 1, the larger it is the more extreme the penalty curve
+    """
+    if max_epochs <= 1:
+        return alpha0
+
+    t = epoch / (max_epochs - 1)  # 0 -> 1
+
+    return alpha0 * float(torch.exp(torch.tensor(-k * t)))
+
+def dpo_loss(policy, ref, batch, epoch, max_epochs, alpha0, *, beta): #is a BatchPair
+    pi_chosen = sequential_log_prob(policy, batch.ids_c, batch.attn_c, batch.labels_c)
+    pi_rejected = sequential_log_prob(policy, batch.ids_r, batch.attn_r, batch.labels_r)
+
+    #when frozen
     with torch.no_grad():
-        ref_lp_c = sequential_log_prob(reference, batch.ids_c, batch.attn_c, batch.labels_c)
-        ref_lp_r = sequential_log_prob(reference, batch.ids_r, batch.attn_r, batch.labels_r)
+        ref_chosen = sequential_log_prob(ref, batch.ids_c, batch.attn_c, batch.labels_c)
+        ref_rejected = sequential_log_prob(ref, batch.ids_r, batch.attn_r, batch.labels_r)
     
-    len_c = (batch.labels_c != -100).sum(dim=1).float()
-    len_r = (batch.labels_r != -100).sum(dim=1).float()
-    len_adv = len_r - len_c
-    
-    # Curriculum length penalty
-    length_penalty_scale = alpha * (current_epoch / max(total_epochs, 1))
-    
-    policy_adv = (lp_chosen - lp_rejected) + length_penalty_scale * len_adv
-    ref_adv = (ref_lp_c - ref_lp_r) + length_penalty_scale * len_adv
-    
-    logits = policy_adv - ref_adv
-    loss = -F.logsigmoid(beta * logits).mean()
-    
+    #dpo preference objective
+    pref_logits = (pi_chosen - pi_rejected) - (ref_chosen - ref_rejected)
+
+    with torch.no_grad():
+        len_c = _completion_lengths(batch.labels_c).float() 
+        len_r = _completion_lengths(batch.labels_r).float()  
+        len_adv = (len_r - len_c) / (len_r + len_c + float('1e-8')) # float is to avoid crashes when both produce output of length 0
+
+        alpha_k = 2.0 #default is 2.0 change later, might want to make hyperparam
+        modded_alpha = _anneal_alpha(epoch, max_epochs, alpha0, alpha_k) #makes alpha decrease over time exponentially
+
+    logits = beta * pref_logits + modded_alpha * len_adv #combines the preference score and length scoring
+
+    loss = -F.logsigmoid(logits).mean() #negative log likelihood of choosing chosen over rejected
+
     metrics = {
         "loss": float(loss.item()),
-        "policy_adv_mean": float(policy_adv.mean().item()),
-        "ref_adv_mean": float(ref_adv.mean().item()),
+        "pref_logit_mean": float(pref_logits.mean().item()),
         "len_adv_mean": float(len_adv.mean().item()),
-        "alpha": float(alpha),
-        "effective_length_penalty": float(length_penalty_scale),
+        "alpha": float(modded_alpha),
         "len_chosen_mean": float(len_c.mean().item()),
         "len_rejected_mean": float(len_r.mean().item()),
     }
