@@ -37,8 +37,7 @@ def _mask_prompt_labels(full_ids, prompt_lens, pad_token_id):
     return labels
 
 def collate_pairs(tokenizer, prompts, chosen, rejected, *, max_length):
-    token_p = tokenizer(prompts, padding=True, return_tensors="pt", truncation=True, max_length=max_length)
-    prompt_lens = token_p["attention_mask"].sum(dim=1)
+    prompt_lens = torch.tensor([len(tokenizer(p, truncation=True, max_length=max_length)["input_ids"]) for p in prompts], dtype=torch.long)
     
     tokenizer_chosen = tokenizer([p + c for p, c in zip(prompts, chosen)],
                       padding=True, return_tensors="pt", truncation=True, max_length=max_length)
@@ -47,6 +46,18 @@ def collate_pairs(tokenizer, prompts, chosen, rejected, *, max_length):
 
     labels_c = _mask_prompt_labels(tokenizer_chosen["input_ids"], prompt_lens, tokenizer.pad_token_id)
     labels_r = _mask_prompt_labels(tokenizer_rejected["input_ids"], prompt_lens, tokenizer.pad_token_id)
+
+    # drop the -100 filtered out examples
+    has_c = (labels_c != -100).any(dim=1)   
+    has_r = (labels_r != -100).any(dim=1)   
+    keep = has_c & has_r    
+
+    if not keep.all():
+        tokenizer_chosen = {k: v[keep] for k, v in tokenizer_chosen.items()}
+        labels_c = labels_c[keep]
+
+        tokenizer_rejected = {k: v[keep] for k, v in tokenizer_rejected.items()}
+        labels_r = labels_r[keep]
 
     return PairBatch(
         tokenizer_chosen["input_ids"], tokenizer_chosen["attention_mask"], labels_c,
