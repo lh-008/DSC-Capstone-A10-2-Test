@@ -60,7 +60,6 @@ def chunk_sentences(text: str, target_words: int) -> list[str]:
 
 
 def main(
-    max_examples: int = 5000,
     min_words: int = 20,
     max_words: int = 120,
     target_passage_words: int = 80,
@@ -87,11 +86,7 @@ def main(
                 out.write(json.dumps(ex, ensure_ascii=False) + "\n")
                 n += 1
 
-                if n >= max_examples:
-                    break
 
-            if n >= max_examples:
-                break
 
     print(f"Wrote {n} passages to {OUT_PATH}")
 
