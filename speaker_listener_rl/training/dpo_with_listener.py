@@ -48,6 +48,25 @@ def collate_pairs(tokenizer, prompts, chosen, rejected, *, max_length):
     labels_c = _mask_prompt_labels(tokenizer_chosen["input_ids"], prompt_lens)
     labels_r = _mask_prompt_labels(tokenizer_rejected["input_ids"], prompt_lens)
 
+    if len(prompts) > 0:
+        comp_c = (labels_c[0] != -100).sum().item()
+        comp_r = (labels_r[0] != -100).sum().item()
+
+        print(
+            "[collate_pairs DEBUG]",
+            "prompt_len:", int(prompt_lens[0].item()),
+            "seq_len:", tokenizer_chosen["input_ids"].size(1),
+            "comp_tokens_chosen:", comp_c,
+            "comp_tokens_rejected:", comp_r,
+            flush=True
+        )
+
+        # If no completion tokens, print the actual text
+        if comp_c == 0 or comp_r == 0:
+            print("PROMPT:", repr(prompts[0]), flush=True)
+            print("CHOSEN:", repr(chosen[0]), flush=True)
+            print("REJECTED:", repr(rejected[0]), flush=True)
+
     return PairBatch(
         tokenizer_chosen["input_ids"], tokenizer_chosen["attention_mask"], labels_c,
         tokenizer_rejected["input_ids"], tokenizer_rejected["attention_mask"], labels_r
@@ -278,7 +297,7 @@ def parse_args():
     parser.add_argument("--lr", type=float, default=1e-5)
     parser.add_argument("--alpha0", type=float, default=0.01)
     parser.add_argument("--beta", type=float, default=0.1)
-    parser.add_argument("--max_length", type=int, default=32)
+    parser.add_argument("--max_length", type=int, default=256)
 
     parser.add_argument("--top_p", type=float, default=0.9)
     parser.add_argument("--temperature", type=float, default=0.7)
@@ -309,11 +328,13 @@ def main():
     # args.alpha0 = config.alpha0 #initial scaling for length penalty
     # args.score_gap_min = config.score_gap_min #min score gap for a pair to be "valid" for training
     # args.grad_accum = config.grad_accum
-    ##########################################################
 
     #not sure if this should be changed, not related to DPO objective
-    args.temperature = config.temperature
-    args.top_p = config.top_p
+    # args.temperature = config.temperature
+    # args.top_p = config.top_p
+    ##########################################################
+
+    
 
     train_dpo(
         policy_model=args.policy_model,

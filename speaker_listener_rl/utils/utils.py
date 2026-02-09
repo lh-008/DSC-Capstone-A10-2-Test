@@ -16,11 +16,10 @@ def jaccard_ngrams(a, b, n=2):
     return len(A & B) / max(1, len(A | B))
 
 def make_prompt(source_text):
-    #generates prompt to tell speaker model to summarize
-    return ("Extract the key words from the sentence, exclude punctuation. \n"
-            "It is more important to mention key words than to speak in complete sentences. \n\n"
-            f"TEXT: {source_text}\n\n"
-            "SUMMARY: \n"
+    return (
+        "Keywords only.\n"
+        f"{source_text}\n"
+        "Keywords:"
     )
 
 @torch.inference_mode()

@@ -29,10 +29,10 @@ parameters:
     min: 0.05
     max: 0.3
 
-  score_gap_min:
-    distribution: log_uniform_values
-    min: 0.01
-    max: 0.3
+  # score_gap_min:
+  #   distribution: log_uniform_values
+  #   min: 0.01
+  #   max: 0.3
 
   grad_accum:
     values: [2, 4, 8]
