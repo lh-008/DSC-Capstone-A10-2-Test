@@ -289,6 +289,16 @@ def train_dpo(
             # Process batch when full
             if len(prompts) == batch_size:
                 batch = collate_pairs(tokenizer, prompts, chosen, rejected, max_length=max_length)
+
+                if batch.ids_c.size(0) == 0: #get around edge case where all pairs are filtered out
+                    print("Skipped: empty batch after dropping pairs", flush=True)
+                    for i in range(min(3, len(prompts))):
+                        print("---- PAIR", i, "----")
+                        print("PROMPT:", repr(prompts[i]))
+                        print("CHOSEN:", repr(chosen[i]))
+                        print("REJECTED:", repr(rejected[i]))
+                    continue
+
                 batch = PairBatch(
                     batch.ids_c.to(device), batch.attn_c.to(device), batch.labels_c.to(device),
                     batch.ids_r.to(device), batch.attn_r.to(device), batch.labels_r.to(device),
