@@ -297,6 +297,7 @@ def train_dpo(
                         print("PROMPT:", repr(prompts[i]))
                         print("CHOSEN:", repr(chosen[i]))
                         print("REJECTED:", repr(rejected[i]))
+                    prompts, chosen, rejected = [], [], []
                     continue
 
                 batch = PairBatch(
@@ -305,6 +306,7 @@ def train_dpo(
                 )
 
                 loss, metrics = dpo_loss(policy, reference, batch, e, epochs, alpha, beta=beta)
+                loss = loss / grad_accum
                 loss.backward()
                 global_step += 1
 

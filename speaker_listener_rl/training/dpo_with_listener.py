@@ -60,13 +60,7 @@ def collate_pairs(tokenizer, prompts, chosen, rejected, *, max_length):
             "comp_tokens_rejected:", comp_r,
             flush=True
         )
-
-        # If no completion tokens, print the actual text
-        if comp_c == 0 or comp_r == 0:
-            print("PROMPT:", repr(prompts[0]), flush=True)
-            print("CHOSEN:", repr(chosen[0]), flush=True)
-            print("REJECTED:", repr(rejected[0]), flush=True)
-
+        
     return PairBatch(
         tokenizer_chosen["input_ids"], tokenizer_chosen["attention_mask"], labels_c,
         tokenizer_rejected["input_ids"], tokenizer_rejected["attention_mask"], labels_r
