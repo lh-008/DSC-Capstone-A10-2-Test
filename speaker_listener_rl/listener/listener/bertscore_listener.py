@@ -61,6 +61,24 @@ class BERTScoreListener:
         if len(candidates) != len(references):
             raise ValueError("candidates and references must have same length")
 
+        DEFAULT_CAND = "[EMPTY]"
+        DEFAULT_REF = "[NO TEXT]"
+
+        clean_cands = []
+        clean_refs = []
+
+        for c, r in zip(candidates, references):
+            c = (c or "").strip()
+            r = (r or "").strip()
+
+            if len(c) == 0:
+                c = DEFAULT_CAND
+            if len(r) == 0:
+                r = DEFAULT_REF
+
+            clean_cands.append(c)
+            clean_refs.append(r)
+
         P, R, F1 = self.scorer.score(candidates, references)
         return [float(x) for x in F1.detach().cpu().tolist()]
 

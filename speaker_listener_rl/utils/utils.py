@@ -19,7 +19,7 @@ def make_prompt(source_text):
     return (
         "Keywords only.\n"
         f"{source_text}\n"
-        "Keywords:"
+        "Summary:"
     )
 
 @torch.inference_mode()
