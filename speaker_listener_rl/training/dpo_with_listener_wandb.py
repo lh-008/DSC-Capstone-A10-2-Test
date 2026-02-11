@@ -1,6 +1,7 @@
 import argparse
 import os
 import sys
+import random
 from pathlib import Path
 import torch
 import torch.nn.functional as F
@@ -25,6 +26,27 @@ class PairBatch:
     ids_r: torch.Tensor
     attn_r: torch.Tensor
     labels_r: torch.Tensor
+
+
+def split_train_test_examples(examples, test_size, split_seed):
+    if not 0.0 <= test_size < 1.0:
+        raise ValueError(f"--test_size must be in [0.0, 1.0), got {test_size}")
+
+    if len(examples) == 0:
+        return [], []
+
+    generator = torch.Generator().manual_seed(split_seed)
+    indices = torch.randperm(len(examples), generator=generator).tolist()
+    shuffled = [examples[i] for i in indices]
+
+    test_count = int(len(shuffled) * test_size)
+    if test_size > 0.0:
+        test_count = max(1, test_count)
+    test_count = min(test_count, max(0, len(shuffled) - 1))
+
+    train_examples = shuffled[test_count:]
+    test_examples = shuffled[:test_count]
+    return train_examples, test_examples
 
 def _mask_prompt_labels(full_ids, prompt_lens, pad_token_id):
     labels = full_ids.clone()
@@ -156,6 +178,10 @@ def train_dpo(
         max_resample_tries,
         listener_model_type,
         listener_batch_size,
+        test_size,
+        split_seed,
+        run_validation,
+        validation_max_examples,
         wandb_project=None,
         wandb_run_name=None
 ):
@@ -186,6 +212,10 @@ def train_dpo(
                 "max_resample_tries": max_resample_tries,
                 "listener_model_type": listener_model_type,
                 "listener_batch_size": listener_batch_size,
+                "test_size": test_size,
+                "split_seed": split_seed,
+                "run_validation": run_validation,
+                "validation_max_examples": validation_max_examples,
                 "device": device
             }
         )
@@ -216,7 +246,24 @@ def train_dpo(
     optimizer = torch.optim.AdamW(policy.parameters(), lr=lr)
 
     print(f"[Data] Loading data from: {input_path}")
-    loader = SimpleWikiPassageLoader(path=input_path, limit=None)
+    examples = list(SimpleWikiPassageLoader(path=input_path, limit=None))
+    train_examples, test_examples = split_train_test_examples(examples, test_size, split_seed)
+    print(
+        f"[Data] Split sizes -> total={len(examples)}, "
+        f"train={len(train_examples)}, test={len(test_examples)}"
+    )
+
+    if len(train_examples) == 0:
+        raise ValueError("Train split is empty. Reduce --test_size or provide more data.")
+
+    if wandb_project is not None:
+        wandb.log(
+            {
+                "data_total": len(examples),
+                "data_train": len(train_examples),
+                "data_test": len(test_examples),
+            }
+        )
 
     policy.train()
     global_step = 0
@@ -231,7 +278,7 @@ def train_dpo(
         prompts, chosen, rejected = [], [], []
         kept, skipped = 0, 0
 
-        for example in loader:
+        for example in train_examples:
             utterance = example['passage']
             prompt = make_prompt(utterance)
             reference_text = utterance
@@ -350,6 +397,78 @@ def train_dpo(
 
         print(f"\n[Epoch {e+1} Complete] Total pairs kept: {kept}, skipped: {skipped}")
 
+        if run_validation and len(test_examples) > 0:
+            policy.eval()
+            val_examples = test_examples
+            if validation_max_examples is not None and validation_max_examples > 0:
+                val_examples = test_examples[:validation_max_examples]
+
+            val_rng = random.Random(split_seed + e)
+            val_gaps = []
+            val_kept = 0
+            val_skipped = 0
+
+            with torch.no_grad():
+                for example in val_examples:
+                    utterance = example["passage"]
+                    prompt = make_prompt(utterance)
+                    reference_text = utterance
+
+                    seed_a = val_rng.randrange(0, 2**31 - 1)
+                    seed_b = val_rng.randrange(0, 2**31 - 1)
+
+                    candidate_a = generate_summary(
+                        policy, tokenizer, prompt,
+                        top_p=top_p, temperature=temperature,
+                        max_new_tokens=max_new_tokens,
+                        repetition_penalty=repetition_penalty,
+                        no_repeat_ngram_size=no_repeat_ngram_size,
+                        seed=seed_a
+                    )
+                    for _ in range(max_resample_tries + 1):
+                        candidate_b = generate_summary(
+                            policy, tokenizer, prompt,
+                            top_p=top_p, temperature=temperature,
+                            max_new_tokens=max_new_tokens,
+                            repetition_penalty=repetition_penalty,
+                            no_repeat_ngram_size=no_repeat_ngram_size,
+                            seed=seed_b
+                        )
+                        similarity = jaccard_ngrams(candidate_a, candidate_b, n=2)
+                        if similarity <= max_pair_similarity:
+                            break
+
+                    preferred = listener.prefer(candidate_a, candidate_b, reference_text)
+                    gap = abs(float(preferred["score_a"]) - float(preferred["score_b"]))
+                    val_gaps.append(gap)
+
+                    if gap < score_gap_min:
+                        val_skipped += 1
+                    else:
+                        val_kept += 1
+
+            val_total = val_kept + val_skipped
+            val_avg_gap = float(sum(val_gaps) / len(val_gaps)) if val_gaps else 0.0
+            val_keep_rate = (float(val_kept) / val_total) if val_total > 0 else 0.0
+            print(
+                f"[Epoch {e+1}] Validation: total={val_total}, kept={val_kept}, "
+                f"skipped={val_skipped}, keep_rate={val_keep_rate:.4f}, avg_gap={val_avg_gap:.4f}"
+            )
+
+            if wandb_project is not None:
+                wandb.log(
+                    {
+                        "epoch": e,
+                        "val_total_pairs": val_total,
+                        "val_kept_pairs": val_kept,
+                        "val_skipped_pairs": val_skipped,
+                        "val_keep_rate": val_keep_rate,
+                        "val_avg_score_gap": val_avg_gap,
+                    }
+                )
+
+            policy.train()
+
     # Save final model
     final_path = os.path.join(output_path, "final_model")
     os.makedirs(final_path, exist_ok=True)
@@ -393,6 +512,10 @@ def parse_args():
     # Listener arguments
     parser.add_argument("--listener_model_type", type=str, default="bert-base-uncased")
     parser.add_argument("--listener_batch_size", type=int, default=8)
+    parser.add_argument("--test_size", type=float, default=0.1)
+    parser.add_argument("--split_seed", type=int, default=42)
+    parser.add_argument("--run_validation", action="store_true")
+    parser.add_argument("--validation_max_examples", type=int, default=128)
     
     # Wandb arguments
     parser.add_argument("--wandb_project", type=str, default=None)
@@ -425,6 +548,10 @@ def main():
         max_resample_tries=args.max_resample_tries,
         listener_model_type=args.listener_model_type,
         listener_batch_size=args.listener_batch_size,
+        test_size=args.test_size,
+        split_seed=args.split_seed,
+        run_validation=args.run_validation,
+        validation_max_examples=args.validation_max_examples,
         wandb_project=args.wandb_project,
         wandb_run_name=args.wandb_run_name
     )
