@@ -28,7 +28,7 @@ class BERTScoreListener:
         self.batch_size = batch_size
         self.use_idf = use_idf
         self.rescale_with_baseline = rescale_with_baseline
-
+        
         self.scorer = BERTScorer(
             model_type=self.model_type,
             lang=self.lang,

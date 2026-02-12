@@ -286,7 +286,7 @@ def parse_args():
     parser.add_argument("--output_path", type=str, required=True)
 
     parser.add_argument("--epochs", type=int, default=5)
-    parser.add_argument("--batch_size", type=int, default=16) #should bump up to 32 or 64 when we get onto GPU
+    parser.add_argument("--batch_size", type=int, default=8) #should bump up to 32 or 64 when we get onto GPU
     parser.add_argument("--grad_accum", type=int, default=8) # large grad_accum training slow, might over fit, small grad_accum training can be unstable
     parser.add_argument("--lr", type=float, default=1e-5)
     parser.add_argument("--alpha0", type=float, default=0.01)
