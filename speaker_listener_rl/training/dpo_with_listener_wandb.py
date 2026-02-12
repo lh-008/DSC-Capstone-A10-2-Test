@@ -59,7 +59,9 @@ def _mask_prompt_labels(full_ids, prompt_lens, pad_token_id):
     return labels
 
 def collate_pairs(tokenizer, prompts, chosen, rejected, *, max_length):
-    prompt_lens = torch.tensor([len(tokenizer(p, truncation=True, max_length=max_length)["input_ids"]) for p in prompts], dtype=torch.long)
+    token_p = tokenizer(prompts, padding=True, truncation=True, max_length=max_length, return_tensors="pt")
+    prompt_lens = token_p["attention_mask"].sum(dim=1)
+ 
     
     tokenizer_chosen = tokenizer([p + c for p, c in zip(prompts, chosen)],
                       padding=True, return_tensors="pt", truncation=True, max_length=max_length)
