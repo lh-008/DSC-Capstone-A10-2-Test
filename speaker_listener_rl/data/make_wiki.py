@@ -63,6 +63,7 @@ def main(
     min_words: int = 20,
     max_words: int = 120,
     target_passage_words: int = 80,
+    max_instances: int = 2000,
 ):
     """
     Reads simplewiki.train, cleans text, chunks into multi-sentence passages,
@@ -85,6 +86,11 @@ def main(
                 ex = {"id": n, "source": "simplewiki", "passage": passage}
                 out.write(json.dumps(ex, ensure_ascii=False) + "\n")
                 n += 1
+                if n >= max_instances:
+                    break
+
+            if n >= max_instances:
+                break
 
 
 
