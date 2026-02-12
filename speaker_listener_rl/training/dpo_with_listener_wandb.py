@@ -349,12 +349,17 @@ def train_dpo(
 
                 loss, metrics = dpo_loss(policy, reference, batch, e, epochs, alpha, alpha_k, beta=beta)
                 loss = loss / grad_accum
+
+                loss_value = loss.item()
+                loss = loss / grad_accum
+
                 loss.backward()
                 global_step += 1
 
                 # Log to wandb
                 if wandb_project is not None:
                     wandb.log({
+                        "train/loss": loss_value,
                         "epoch": e,
                         "global_step": global_step,
                         **metrics,
@@ -394,6 +399,8 @@ def train_dpo(
 
         if run_validation and len(test_examples) > 0:
             policy.eval()
+            reference.eval()
+
             val_examples = test_examples
             if validation_max_examples is not None and validation_max_examples > 0:
                 val_examples = test_examples[:validation_max_examples]
@@ -402,6 +409,9 @@ def train_dpo(
             val_gaps = []
             val_kept = 0
             val_skipped = 0
+
+            val_loss_sum = 0.0
+            val_loss_n = 0
 
             with torch.no_grad():
                 for example in val_examples:
@@ -442,25 +452,48 @@ def train_dpo(
                     else:
                         val_kept += 1
 
+                        if preferred["preferred"] == "A":
+                            c, r = candidate_a, candidate_b
+                        else:
+                            c, r = candidate_b, candidate_a
+
+                        vb = collate_pairs(tokenizer, [prompt], [c], [r], max_length=max_length)
+                        if vb.ids_c.size(0) == 0:
+                            continue
+
+                        vb = PairBatch(
+                            vb.ids_c.to(device), vb.attn_c.to(device), vb.labels_c.to(device),
+                            vb.ids_r.to(device), vb.attn_r.to(device), vb.labels_r.to(device),
+                        )
+                        vloss, _ = dpo_loss(policy, reference, vb, e, epochs, alpha, alpha_k, beta=beta)
+                        val_loss_sum += float(vloss.item())
+                        val_loss_n += 1
+
+
             val_total = val_kept + val_skipped
             val_avg_gap = float(sum(val_gaps) / len(val_gaps)) if val_gaps else 0.0
             val_keep_rate = (float(val_kept) / val_total) if val_total > 0 else 0.0
+            val_loss = (val_loss_sum / val_loss_n) if val_loss_n > 0 else None
+
             print(
                 f"[Epoch {e+1}] Validation: total={val_total}, kept={val_kept}, "
-                f"skipped={val_skipped}, keep_rate={val_keep_rate:.4f}, avg_gap={val_avg_gap:.4f}"
+                f"skipped={val_skipped}, keep_rate={val_keep_rate:.4f}, avg_gap={val_avg_gap:.4f}, "
+                f"val_loss={(val_loss if val_loss is not None else 'NA')}",
+                flush=True
             )
 
             if wandb_project is not None:
-                wandb.log(
-                    {
-                        "epoch": e,
-                        "val_total_pairs": val_total,
-                        "val_kept_pairs": val_kept,
-                        "val_skipped_pairs": val_skipped,
-                        "val_keep_rate": val_keep_rate,
-                        "val_avg_score_gap": val_avg_gap,
-                    }
-                )
+                payload = {
+                    "epoch": e,
+                    "val_total_pairs": val_total,
+                    "val_kept_pairs": val_kept,
+                    "val_skipped_pairs": val_skipped,
+                    "val_keep_rate": val_keep_rate,
+                    "val_avg_score_gap": val_avg_gap,
+                }
+            if val_loss is not None:
+                payload["val/loss"] = val_loss
+            wandb.log(payload, step=optimizer_steps)
 
             policy.train()
 
