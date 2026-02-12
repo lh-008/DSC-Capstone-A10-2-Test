@@ -272,6 +272,8 @@ def train_dpo(
     global_step = 0
     total_kept = 0
     total_skipped = 0
+    optimizer_steps = 0
+
 
     for e in range(epochs):
         print(f"\n{'='*50}")
