@@ -40,6 +40,7 @@ def generate_summary(model, tokenizer, prompt, top_p, temperature, max_new_token
         no_repeat_ngram_size=no_repeat_ngram_size,
         pad_token_id=tokenizer.eos_token_id,
         eos_token_id=tokenizer.eos_token_id,
+        synced_gpus=False
     )
 
     decoded = tokenizer.decode(output[0], skip_special_tokens=True)
