@@ -81,6 +81,12 @@ spec:
           value: "dpo-training"
         - name: WANDB_MODE
           value: "online"
+        - name: WORLD_SIZE
+          value: "1"
+        - name: RANK
+          value: "0"
+        - name: LOCAL_RANK
+          value: "0"
         # - name: CUDA_LAUNCH_BLOCKING
         #   value: "1"
         - name: TORCH_SHOW_CPP_STACKTRACES

@@ -29,8 +29,6 @@ def generate_summary(model, tokenizer, prompt, top_p, temperature, max_new_token
     inputs = tokenizer(prompt, return_tensors="pt", truncation=True)
     inputs = {k: v.to(model.device) for k, v in inputs.items()}
 
-    print(type(max_new_tokens), type(no_repeat_ngram_size), type(temperature), type(top_p), flush=True)
-
     output = model.generate(
         **inputs,
         do_sample=True,
