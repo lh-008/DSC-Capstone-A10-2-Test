@@ -274,7 +274,6 @@ def train_dpo(
     total_skipped = 0
     optimizer_steps = 0
 
-
     for e in range(epochs):
         print(f"\n{'='*50}")
         print(f"EPOCH {e+1}/{epochs}")
@@ -377,7 +376,7 @@ def train_dpo(
                     optimizer.step()
                     optimizer.zero_grad()
 
-                    optimizer_steps = global_step // grad_accum
+                    optimizer_steps += 1
                     
                     # Save checkpoints
                     save_interval = 100
