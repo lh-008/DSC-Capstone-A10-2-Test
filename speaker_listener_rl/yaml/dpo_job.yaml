@@ -63,7 +63,7 @@ spec:
               --temperature 0.7 \
               --repetition_penalty 1.0 \
               --no_repeat_ngram_size 0 \
-              --score_gap_min 0.1 \
+              --score_gap_min 0 \
               --max_pair_similarity 0.85 \
               --max_resample_tries 4 \
               --listener_model_type roberta-large \
@@ -81,12 +81,6 @@ spec:
           value: "dpo-training"
         - name: WANDB_MODE
           value: "online"
-        - name: WORLD_SIZE
-          value: "1"
-        - name: RANK
-          value: "0"
-        - name: LOCAL_RANK
-          value: "0"
         # - name: CUDA_LAUNCH_BLOCKING
         #   value: "1"
         - name: TORCH_SHOW_CPP_STACKTRACES
