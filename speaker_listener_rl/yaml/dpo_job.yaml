@@ -65,7 +65,7 @@ spec:
               --no_repeat_ngram_size 0 \
               --score_gap_min 0.1 \
               --max_pair_similarity 0.85 \
-              --max_resample_tries 2 \
+              --max_resample_tries 4 \
               --listener_model_type roberta-large \
               --listener_batch_size 8 \
               --run_validation \
