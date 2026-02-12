@@ -121,7 +121,7 @@ def _anneal_alpha(epoch, max_epochs, alpha0, k):
 
     return alpha0 * float(torch.exp(torch.tensor(-k * t)))
 
-def dpo_loss(policy, ref, batch, epoch, max_epochs, alpha0, *, beta): #is a BatchPair
+def dpo_loss(policy, ref, batch, epoch, max_epochs, alpha0, alpha_k, *, beta): #is a BatchPair
     pi_chosen = sequential_log_prob(policy, batch.ids_c, batch.attn_c, batch.labels_c)
     pi_rejected = sequential_log_prob(policy, batch.ids_r, batch.attn_r, batch.labels_r)
 
@@ -138,7 +138,6 @@ def dpo_loss(policy, ref, batch, epoch, max_epochs, alpha0, *, beta): #is a Batc
         len_r = _completion_lengths(batch.labels_r).float()  
         len_adv = (len_r - len_c) / (len_r + len_c + float('1e-8')) # float is to avoid crashes when both produce output of length 0
 
-        alpha_k = 2.0 #default is 2.0 change later, might want to make hyperparam
         modded_alpha = _anneal_alpha(epoch, max_epochs, alpha0, alpha_k) #makes alpha decrease over time exponentially
 
     logits = beta * pref_logits + modded_alpha * len_adv #combines the preference score and length scoring
@@ -166,6 +165,7 @@ def train_dpo(
         grad_accum,
         lr,
         alpha,
+        alpha_k,
         beta,
         max_length,
         top_p,
@@ -200,6 +200,7 @@ def train_dpo(
                 "grad_accum": grad_accum,
                 "learning_rate": lr,
                 "alpha": alpha,
+                "alpha_k": alpha_k,
                 "beta": beta,
                 "max_length": max_length,
                 "top_p": top_p,
@@ -338,12 +339,6 @@ def train_dpo(
                 batch = collate_pairs(tokenizer, prompts, chosen, rejected, max_length=max_length)
 
                 if batch.ids_c.size(0) == 0: #get around edge case where all pairs are filtered out
-                    print("Skipped: empty batch after dropping pairs", flush=True)
-                    for i in range(min(3, len(prompts))):
-                        print("---- PAIR", i, "----")
-                        print("PROMPT:", repr(prompts[i]))
-                        print("CHOSEN:", repr(chosen[i]))
-                        print("REJECTED:", repr(rejected[i]))
                     prompts, chosen, rejected = [], [], []
                     continue
 
@@ -352,7 +347,7 @@ def train_dpo(
                     batch.ids_r.to(device), batch.attn_r.to(device), batch.labels_r.to(device),
                 )
 
-                loss, metrics = dpo_loss(policy, reference, batch, e, epochs, alpha, beta=beta)
+                loss, metrics = dpo_loss(policy, reference, batch, e, epochs, alpha, alpha_k, beta=beta)
                 loss = loss / grad_accum
                 loss.backward()
                 global_step += 1
@@ -494,6 +489,7 @@ def parse_args():
     parser.add_argument("--grad_accum", type=int, default=8)
     parser.add_argument("--lr", type=float, default=1e-5)
     parser.add_argument("--alpha", type=float, default=0.01)
+    parser.add_argument("--alpha_k", type=int, default=2)
     parser.add_argument("--beta", type=float, default=0.1)
     parser.add_argument("--max_length", type=int, default=256)
     
@@ -536,6 +532,7 @@ def main():
         grad_accum=args.grad_accum,
         lr=args.lr,
         alpha=args.alpha,
+        alpha_k=args.alpha_k,
         beta=args.beta,
         max_length=args.max_length,
         top_p=args.top_p,

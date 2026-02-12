@@ -29,6 +29,11 @@ parameters:
     min: 0.05
     max: 0.3
 
+  k:
+    distribution: int_uniform_values
+    min: 1
+    max: 4
+
   # score_gap_min:
   #   distribution: log_uniform_values
   #   min: 0.01
