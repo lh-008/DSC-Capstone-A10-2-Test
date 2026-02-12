@@ -223,6 +223,20 @@ def train_dpo(
             }
         )
         print(f"[WandB] Initialized project: {wandb_project}, run: {wandb_run_name}")
+
+    import os
+    keys = [
+    "RANK","LOCAL_RANK","WORLD_SIZE",
+    "MASTER_ADDR","MASTER_PORT",
+    "SLURM_PROCID","SLURM_LOCALID","SLURM_NTASKS",
+    "OMPI_COMM_WORLD_RANK","OMPI_COMM_WORLD_SIZE",
+    ]
+    print("=== DIST ENV DUMP ===", flush=True)
+    for k in keys:
+        if k in os.environ:
+            print(k, repr(os.environ[k]), flush=True)
+    print("=====================", flush=True)
+
     
     tokenizer = AutoTokenizer.from_pretrained(policy_model)
     if tokenizer.pad_token_id is None:
