@@ -1,6 +1,15 @@
 import argparse
 import os
 import sys
+
+# Try to fix stoi errors in distributed training by unsetting problematic environment variables
+for var in ["WORLD_SIZE", "RANK", "LOCAL_RANK", "MASTER_ADDR", "MASTER_PORT", "OMP_NUM_THREADS"]:
+    if var in os.environ:
+        val = os.environ[var]
+        if not val or not val.isdigit():
+            print(f"[Warning] Unsetting invalid environment variable {var}='{val}'")
+            del os.environ[var]
+
 import random
 from pathlib import Path
 import torch
