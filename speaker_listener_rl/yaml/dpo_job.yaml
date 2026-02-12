@@ -53,10 +53,10 @@ spec:
               --output_path /workspace/checkpoints \
               --epochs 5 \
               --batch_size 16 \
-              --grad_accum 4 \
+              --grad_accum 8 \
               --lr 5e-6 \
-              --alpha 0.01 \
-              --beta 0.1 \
+              --alpha 0.1 \
+              --beta 0.05 \
               --max_length 32 \
               --max_new_tokens 16 \
               --top_p 0.8 \
