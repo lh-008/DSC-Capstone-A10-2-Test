@@ -63,7 +63,7 @@ spec:
               --temperature 0.5 \
               --repetition_penalty 1.0 \
               --no_repeat_ngram_size 0 \
-              --score_gap_min 0 \
+              --score_gap_min 0.02 \
               --max_pair_similarity 0.9 \
               --max_resample_tries 4 \
               --listener_model_type roberta-large \
