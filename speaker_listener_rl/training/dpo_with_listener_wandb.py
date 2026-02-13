@@ -281,6 +281,8 @@ def train_dpo(
         
         prompts, chosen, rejected = [], [], []
         kept, skipped = 0, 0
+        dropped_after_collate = 0
+        total_dropped_after_collate = 0
 
         for example in train_examples:
             utterance = example['passage']
@@ -342,6 +344,8 @@ def train_dpo(
                 batch = collate_pairs(tokenizer, prompts, chosen, rejected, max_length=max_length)
 
                 if batch.ids_c.size(0) == 0: #get around edge case where all pairs are filtered out
+                    dropped_after_collate += 1
+                    total_dropped_after_collate += 1
                     prompts, chosen, rejected = [], [], []
                     continue
 
@@ -367,8 +371,10 @@ def train_dpo(
                         **metrics,
                         "kept_pairs": kept,
                         "skipped_pairs": skipped,
+                        "dropped_after_collate_pairs": dropped_after_collate,
                         "total_kept": total_kept,
-                        "total_skipped": total_skipped
+                        "total_skipped": total_skipped,
+                        "total_dropped_after_collate_pairs": total_dropped_after_collate
                     })
 
                 # Optimizer step with gradient accumulation
@@ -397,7 +403,10 @@ def train_dpo(
             if (global_step + 1) % 10 == 0:
                 print(f"[Epoch {e+1}] Steps={global_step} | Kept={kept} | Skipped={skipped}")
 
-        print(f"\n[Epoch {e+1} Complete] Total pairs kept: {kept}, skipped: {skipped}")
+        print(
+            f"\n[Epoch {e+1} Complete] Total pairs kept: {kept}, skipped: {skipped}, "
+            f"dropped_after_collate: {dropped_after_collate}"
+        )
 
         if run_validation and len(test_examples) > 0:
             policy.eval()
@@ -411,6 +420,8 @@ def train_dpo(
             val_gaps = []
             val_kept = 0
             val_skipped = 0
+            val_effective_kept = 0
+            val_dropped_after_collate = 0
 
             val_loss_sum = 0.0
             val_loss_n = 0
@@ -461,8 +472,10 @@ def train_dpo(
 
                         vb = collate_pairs(tokenizer, [prompt], [c], [r], max_length=max_length)
                         if vb.ids_c.size(0) == 0:
+                            val_dropped_after_collate += 1
                             continue
 
+                        val_effective_kept += 1
                         vb = PairBatch(
                             vb.ids_c.to(device), vb.attn_c.to(device), vb.labels_c.to(device),
                             vb.ids_r.to(device), vb.attn_r.to(device), vb.labels_r.to(device),
@@ -480,7 +493,8 @@ def train_dpo(
             print(
                 f"[Epoch {e+1}] Validation: total={val_total}, kept={val_kept}, "
                 f"skipped={val_skipped}, keep_rate={val_keep_rate:.4f}, avg_gap={val_avg_gap:.4f}, "
-                f"val_loss={(val_loss if val_loss is not None else 'NA')}",
+                f"effective_kept={val_effective_kept}, dropped_after_collate={val_dropped_after_collate}, "
+                f"val_loss_batches={val_loss_n}, val_loss={(val_loss if val_loss is not None else 'NA')}",
                 flush=True
             )
 
@@ -492,6 +506,9 @@ def train_dpo(
                     "val_skipped_pairs": val_skipped,
                     "val_keep_rate": val_keep_rate,
                     "val_avg_score_gap": val_avg_gap,
+                    "val_effective_kept_pairs": val_effective_kept,
+                    "val_dropped_after_collate_pairs": val_dropped_after_collate,
+                    "val_loss_batches": val_loss_n,
                 }
             if val_loss is not None:
                 payload["val/loss"] = val_loss
