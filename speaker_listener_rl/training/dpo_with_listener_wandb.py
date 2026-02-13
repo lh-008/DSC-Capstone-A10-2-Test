@@ -267,6 +267,10 @@ def train_dpo(
                 "data_test": len(test_examples),
             }
         )
+        if wandb.run is not None:
+            wandb.run.summary["data_total"] = len(examples)
+            wandb.run.summary["data_train"] = len(train_examples)
+            wandb.run.summary["data_test"] = len(test_examples)
 
     policy.train()
     global_step = 0
