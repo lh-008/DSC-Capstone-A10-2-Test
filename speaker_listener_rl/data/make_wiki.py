@@ -63,7 +63,7 @@ def main(
     min_words: int = 20,
     max_words: int = 120,
     target_passage_words: int = 80,
-    max_instances: int = 5000,
+    max_instances: int = 15000,
 ):
     """
     Reads simplewiki.train, cleans text, chunks into multi-sentence passages,
