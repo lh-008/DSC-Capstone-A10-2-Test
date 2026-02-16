@@ -222,6 +222,9 @@ def train_dpo(
                 "device": device
             }
         )
+        # Use one explicit step metric for all logs to avoid out-of-order warnings.
+        wandb.define_metric("global_step")
+        wandb.define_metric("*", step_metric="global_step")
         print(f"[WandB] Initialized project: {wandb_project}, run: {wandb_run_name}")
     
     tokenizer = AutoTokenizer.from_pretrained(policy_model)
@@ -399,7 +402,10 @@ def train_dpo(
                         
                         # Log checkpoint to wandb
                         if wandb_project is not None:
-                            wandb.log({"checkpoint_step": optimizer_steps})
+                            wandb.log({
+                                "checkpoint_step": optimizer_steps,
+                                "global_step": global_step,
+                            })
 
                 prompts, chosen, rejected = [], [], []
 
@@ -505,6 +511,7 @@ def train_dpo(
             if wandb_project is not None:
                 payload = {
                     "epoch": e,
+                    "global_step": global_step,
                     "val_total_pairs": val_total,
                     "val_kept_pairs": val_kept,
                     "val_skipped_pairs": val_skipped,
@@ -514,9 +521,9 @@ def train_dpo(
                     "val_dropped_after_collate_pairs": val_dropped_after_collate,
                     "val_loss_batches": val_loss_n,
                 }
-            if val_loss is not None:
-                payload["val/loss"] = val_loss
-            wandb.log(payload, step=optimizer_steps)
+                if val_loss is not None:
+                    payload["val/loss"] = val_loss
+                wandb.log(payload)
 
             policy.train()
 
@@ -557,7 +564,7 @@ def parse_args():
     parser.add_argument("--no_repeat_ngram_size", type=int, default=0)
     
     # Preference filtering arguments
-    parser.add_argument("--score_gap_min", type=float, default=0.0)
+    parser.add_argument("--score_gap_min", type=float, default=1e-4)
     parser.add_argument("--max_pair_similarity", type=float, default=0.85)
     parser.add_argument("--max_resample_tries", type=int, default=2)
     

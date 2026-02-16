@@ -77,7 +77,7 @@ python speaker_listener_rl/training/dpo_with_listener_wandb.py \
   --max_new_tokens 16 \
   --repetition_penalty 1.0 \
   --no_repeat_ngram_size 0 \
-  --score_gap_min 0.0 \
+  --score_gap_min 1e-4 \
   --max_pair_similarity 0.85 \
   --max_resample_tries 2 \
   --listener_model_type bert-base-uncased \
