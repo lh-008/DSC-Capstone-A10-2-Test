@@ -5,7 +5,7 @@ import random
 from pathlib import Path
 import torch
 import torch.nn.functional as F
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoTokenizer, AutoModelForCausalLM, AutoConfig
 import wandb
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -162,6 +162,7 @@ def train_dpo(
         reference_model,
         input_path,
         output_path,
+        random_init_policy,
         epochs, 
         batch_size, 
         grad_accum,
@@ -197,6 +198,7 @@ def train_dpo(
             config={
                 "policy_model": policy_model,
                 "reference_model": reference_model,
+                "random_init_policy": random_init_policy,
                 "epochs": epochs,
                 "batch_size": batch_size,
                 "grad_accum": grad_accum,
@@ -232,7 +234,12 @@ def train_dpo(
         tokenizer.pad_token = tokenizer.eos_token
 
     print(f"[Model] Loading policy model: {policy_model}")
-    policy = AutoModelForCausalLM.from_pretrained(policy_model).to(device)
+    if random_init_policy:
+        print(f"[Model] Initializing policy model from config (random weights): {policy_model}")
+        config = AutoConfig.from_pretrained(policy_model)
+        policy = AutoModelForCausalLM.from_config(config).to(device)
+    else:
+        policy = AutoModelForCausalLM.from_pretrained(policy_model).to(device)
     
     print(f"[Model] Loading reference model: {reference_model}")
     reference = AutoModelForCausalLM.from_pretrained(reference_model).to(device)
@@ -545,6 +552,7 @@ def parse_args():
     parser.add_argument("--reference_model", type=str, required=True, default='gpt2')
     parser.add_argument("--input_path", type=str, required=True)
     parser.add_argument("--output_path", type=str, required=True)
+    parser.add_argument("--random_init_policy", action="store_true")
     
     # Training arguments
     parser.add_argument("--epochs", type=int, default=5)
@@ -590,6 +598,7 @@ def main():
         reference_model=args.reference_model,
         input_path=args.input_path,
         output_path=args.output_path,
+        random_init_policy=args.random_init_policy,
         epochs=args.epochs,
         batch_size=args.batch_size,
         grad_accum=args.grad_accum,
