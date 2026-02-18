@@ -69,7 +69,7 @@ spec:
               --listener_model_type roberta-large \
               --listener_batch_size 8 \
               --run_validation \
-              --validation_max_examples 32
+              --validation_max_examples 64
             
             echo "checkpoints saved to /workspace/checkpoints"
             ls -lh /workspace/checkpoints/

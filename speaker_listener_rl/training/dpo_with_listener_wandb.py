@@ -224,6 +224,7 @@ def train_dpo(
                 "device": device
             }
         )
+
         # Use one explicit step metric for all logs to avoid out-of-order warnings.
         wandb.define_metric("global_step")
         wandb.define_metric("*", step_metric="global_step")
@@ -304,7 +305,6 @@ def train_dpo(
             reference_text = utterance
 
             seed_a = torch.randint(0, 2**31 - 1, (1,)).item()
-            seed_b = torch.randint(0, 2**31 - 1, (1,)).item()
 
             candidate_a = generate_summary(
                 policy, tokenizer, prompt,
@@ -317,6 +317,7 @@ def train_dpo(
             
             # Resample candidate_b if too similar to candidate_a
             for _ in range(max_resample_tries + 1):
+                seed_b = torch.randint(0, 2**31 - 1, (1,)).item()
                 candidate_b = generate_summary(
                     policy, tokenizer, prompt,
                     top_p=top_p, temperature=temperature,
@@ -443,14 +444,26 @@ def train_dpo(
             val_loss_sum = 0.0
             val_loss_n = 0
 
+            val_surprisal_sum = 0.0
+            val_surprisal_n = 0
+
             with torch.no_grad():
                 for example in val_examples:
                     utterance = example["passage"]
                     prompt = make_prompt(utterance)
                     reference_text = utterance
 
+                    enc = tokenizer(
+                        utterance,
+                        return_tensors="pt",
+                        truncation=True,
+                        max_length=max_length,
+                    ).to(device)
+                    out = policy(**enc, labels=enc["input_ids"])
+                    val_surprisal_sum += float(out.loss.item())
+                    val_surprisal_n += 1
+                    
                     seed_a = val_rng.randrange(0, 2**31 - 1)
-                    seed_b = val_rng.randrange(0, 2**31 - 1)
 
                     candidate_a = generate_summary(
                         policy, tokenizer, prompt,
@@ -461,6 +474,7 @@ def train_dpo(
                         seed=seed_a
                     )
                     for _ in range(max_resample_tries + 1):
+                        seed_b = val_rng.randrange(0, 2**31 - 1)
                         candidate_b = generate_summary(
                             policy, tokenizer, prompt,
                             top_p=top_p, temperature=temperature,
@@ -501,17 +515,18 @@ def train_dpo(
                         val_loss_sum += float(vloss.item())
                         val_loss_n += 1
 
-
             val_total = val_kept + val_skipped
             val_avg_gap = float(sum(val_gaps) / len(val_gaps)) if val_gaps else 0.0
             val_keep_rate = (float(val_kept) / val_total) if val_total > 0 else 0.0
             val_loss = (val_loss_sum / val_loss_n) if val_loss_n > 0 else None
+            val_surprisal = (val_surprisal_sum / val_surprisal_n) if val_surprisal_n > 0 else None
 
             print(
                 f"[Epoch {e+1}] Validation: total={val_total}, kept={val_kept}, "
                 f"skipped={val_skipped}, keep_rate={val_keep_rate:.4f}, avg_gap={val_avg_gap:.4f}, "
                 f"effective_kept={val_effective_kept}, dropped_after_collate={val_dropped_after_collate}, "
                 f"val_loss_batches={val_loss_n}, val_loss={(val_loss if val_loss is not None else 'NA')}",
+                f"val_surprisal={(val_surprisal if val_surprisal is not None else 'NA')}",
                 flush=True
             )
 
@@ -530,6 +545,8 @@ def train_dpo(
                 }
                 if val_loss is not None:
                     payload["val/loss"] = val_loss
+                if val_surprisal is not None:
+                    payload["val/surprisal"] = val_surprisal
                 wandb.log(payload)
 
             policy.train()
@@ -592,6 +609,11 @@ def parse_args():
 
 def main():
     args = parse_args()
+
+    if args.wandb_project is not None:
+        if wandb.config:
+            for key in wandb.config:
+                setattr(args, key, wandb.config[key])
 
     train_dpo(
         policy_model=args.policy_model,

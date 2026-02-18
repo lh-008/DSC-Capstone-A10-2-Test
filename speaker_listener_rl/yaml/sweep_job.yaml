@@ -1,0 +1,47 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: dpo-sweep-agent
+spec:
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: sweep-agent
+        image: pytorch/pytorch:2.1.0-cuda11.8-cudnn8-runtime
+        command:
+          - wandb
+          - agent
+          - lemn-lab/dpo-training/3kdq5ss2 #replace for new sweep
+        env:
+        - name: WANDB_API_KEY
+          value: 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
+        - name: WANDB_PROJECT
+          value: dpo-training
+        - name: WORLD_SIZE
+          value: "1"
+        - name: RANK
+          value: "0"
+        - name: LOCAL_RANK
+          value: "0"
+        - name: MASTER_ADDR
+          value: "127.0.0.1"
+        - name: MASTER_PORT
+          value: "29500"
+
+        resources:
+          limits:
+            nvidia.com/gpu: 1
+          requests:
+            nvidia.com/gpu: 1
+
+        volumeMounts:
+        - name: workspace
+          mountPath: /workspace
+
+      volumes:
+      - name: workspace
+        persistentVolumeClaim:
+          claimName: dpo-storage   # <-- replace with your PVC
+

@@ -1,6 +1,6 @@
-method: bayesian
+method: bayes
 metric:
-  name: loss #dpo loss, might need to change to reward func
+  name: train/loss_ema #dpo loss, might need to change to reward func
   goal: minimize
 
 parameters:
