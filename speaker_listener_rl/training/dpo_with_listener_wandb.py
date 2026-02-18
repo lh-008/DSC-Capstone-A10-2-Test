@@ -156,6 +156,11 @@ def dpo_loss(policy, ref, batch, epoch, max_epochs, alpha0, alpha_k, *, beta): #
     }
     return loss, metrics
 
+def _update_ema(prev, value, alpha):
+    if prev is None:
+        return float(value)
+    return float(alpha * value + (1.0 - alpha) * prev)
+
 def train_dpo(
         *,
         policy_model,
@@ -189,6 +194,9 @@ def train_dpo(
         wandb_run_name=None
 ):
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    ema_alpha = 0.1
+    train_loss_ema = None
+    val_loss_ema = None
     
     # Initialize wandb
     if wandb_project is not None:
@@ -221,6 +229,7 @@ def train_dpo(
                 "split_seed": split_seed,
                 "run_validation": run_validation,
                 "validation_max_examples": validation_max_examples,
+                "ema_alpha": ema_alpha,
                 "device": device
             }
         )
@@ -372,6 +381,7 @@ def train_dpo(
                 loss, metrics = dpo_loss(policy, reference, batch, e, epochs, alpha, alpha_k, beta=beta)
 
                 loss_value = loss.item()
+                train_loss_ema = _update_ema(train_loss_ema, loss_value, ema_alpha)
                 loss = loss / grad_accum
 
                 loss.backward()
@@ -381,6 +391,7 @@ def train_dpo(
                 if wandb_project is not None:
                     wandb.log({
                         "train/loss": loss_value,
+                        "train/loss_ema": train_loss_ema,
                         "epoch": e,
                         "global_step": global_step,
                         **metrics,
@@ -544,7 +555,9 @@ def train_dpo(
                     "val_loss_batches": val_loss_n,
                 }
                 if val_loss is not None:
+                    val_loss_ema = _update_ema(val_loss_ema, val_loss, ema_alpha)
                     payload["val/loss"] = val_loss
+                    payload["val/loss_ema"] = val_loss_ema
                 if val_surprisal is not None:
                     payload["val/surprisal"] = val_surprisal
                 wandb.log(payload)
