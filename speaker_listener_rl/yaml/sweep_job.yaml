@@ -31,10 +31,14 @@ spec:
           value: "29500"
 
         resources:
-          limits:
-            nvidia.com/gpu: 1
           requests:
-            nvidia.com/gpu: 1
+            cpu: "4"
+            memory: "16Gi"
+            nvidia.com/gpu: "1"
+          limits:
+            cpu: "8"
+            memory: "24Gi"
+            nvidia.com/gpu: "1"
 
         volumeMounts:
         - name: workspace
