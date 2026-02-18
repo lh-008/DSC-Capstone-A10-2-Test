@@ -6,9 +6,9 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--model_dir", type=str, default="output")
-    parser.add_argument("--prompt", type=str, default="Write a one-sentence summary of: The quick brown fox jumps over the lazy dog.")
+    parser.add_argument("--prompt", type=str, default="Write a one-sentence summary of: Julius Caesar is a tragedy by William Shakespeare. It depicts the political conspiracy against the Roman dictator Julius Caesar, his assassination and its aftermath.")
     parser.add_argument("--num_return_sequences", type=int, default=1)
-    parser.add_argument("--max_new_tokens", type=int, default=32)
+    parser.add_argument("--max_new_tokens", type=int, default=16)
     parser.add_argument("--top_p", type=float, default=0.9)
     parser.add_argument("--temperature", type=float, default=0.7)
     parser.add_argument("--device", type=str, default=None)

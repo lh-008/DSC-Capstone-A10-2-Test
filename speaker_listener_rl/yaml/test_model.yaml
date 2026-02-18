@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debug-checkpoints
+spec:
+  restartPolicy: Never
+  containers:
+  - name: shell
+    image: ubuntu:22.04
+    command: ["bash", "-lc", "sleep 36000"]
+    volumeMounts:
+    - name: work
+      mountPath: /workspace
+  volumes:
+  - name: work
+    persistentVolumeClaim:
+      claimName: dpo-storage
