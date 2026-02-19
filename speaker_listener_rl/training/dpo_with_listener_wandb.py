@@ -2,6 +2,7 @@ import argparse
 import os
 import sys
 import random
+from collections import deque
 from pathlib import Path
 import torch
 import torch.nn.functional as F
@@ -161,6 +162,10 @@ def _update_ema(prev, value, alpha):
         return float(value)
     return float(alpha * value + (1.0 - alpha) * prev)
 
+def _update_sma(window_values, value):
+    window_values.append(float(value))
+    return float(sum(window_values) / len(window_values))
+
 def train_dpo(
         *,
         policy_model,
@@ -190,11 +195,15 @@ def train_dpo(
         split_seed,
         run_validation,
         validation_max_examples,
+        train_loss_ema_alpha,
+        train_loss_sma_window,
         wandb_project=None,
         wandb_run_name=None
 ):
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    ema_alpha = 0.1
+    ema_alpha = train_loss_ema_alpha
+    train_loss_sma_values = deque(maxlen=train_loss_sma_window)
+    train_loss_sma = None
     train_loss_ema = None
     val_loss_ema = None
     
@@ -230,6 +239,7 @@ def train_dpo(
                 "run_validation": run_validation,
                 "validation_max_examples": validation_max_examples,
                 "ema_alpha": ema_alpha,
+                "train_loss_sma_window": train_loss_sma_window,
                 "device": device
             }
         )
@@ -381,7 +391,8 @@ def train_dpo(
                 loss, metrics = dpo_loss(policy, reference, batch, e, epochs, alpha, alpha_k, beta=beta)
 
                 loss_value = loss.item()
-                train_loss_ema = _update_ema(train_loss_ema, loss_value, ema_alpha)
+                train_loss_sma = _update_sma(train_loss_sma_values, loss_value)
+                train_loss_ema = _update_ema(train_loss_ema, train_loss_sma, ema_alpha)
                 loss = loss / grad_accum
 
                 loss.backward()
@@ -390,7 +401,9 @@ def train_dpo(
                 # Log to wandb
                 if wandb_project is not None:
                     wandb.log({
-                        "train/loss": loss_value,
+                        "train/loss_raw": loss_value,
+                        "train/loss": train_loss_sma,
+                        "train/loss_sma": train_loss_sma,
                         "train/loss_ema": train_loss_ema,
                         "epoch": e,
                         "global_step": global_step,
@@ -593,6 +606,8 @@ def parse_args():
     parser.add_argument("--alpha_k", type=int, default=2)
     parser.add_argument("--beta", type=float, default=0.1)
     parser.add_argument("--max_length", type=int, default=256)
+    parser.add_argument("--train_loss_ema_alpha", type=float, default=0.03)
+    parser.add_argument("--train_loss_sma_window", type=int, default=25)
     
     # Generation arguments
     parser.add_argument("--top_p", type=float, default=0.9)
@@ -628,6 +643,11 @@ def main():
             for key in wandb.config:
                 setattr(args, key, wandb.config[key])
 
+    if not 0.0 < args.train_loss_ema_alpha <= 1.0:
+        raise ValueError(f"--train_loss_ema_alpha must be in (0, 1], got {args.train_loss_ema_alpha}")
+    if args.train_loss_sma_window < 1:
+        raise ValueError(f"--train_loss_sma_window must be >= 1, got {args.train_loss_sma_window}")
+
     train_dpo(
         policy_model=args.policy_model,
         reference_model=args.reference_model,
@@ -656,6 +676,8 @@ def main():
         split_seed=args.split_seed,
         run_validation=args.run_validation,
         validation_max_examples=args.validation_max_examples,
+        train_loss_ema_alpha=args.train_loss_ema_alpha,
+        train_loss_sma_window=args.train_loss_sma_window,
         wandb_project=args.wandb_project,
         wandb_run_name=args.wandb_run_name
     )
