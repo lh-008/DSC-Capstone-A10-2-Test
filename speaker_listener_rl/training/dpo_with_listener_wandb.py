@@ -187,6 +187,7 @@ def train_dpo(
         repetition_penalty,
         no_repeat_ngram_size,
         score_gap_min,
+        val_score_gap_min,
         max_pair_similarity,
         max_resample_tries,
         listener_model_type,
@@ -230,6 +231,7 @@ def train_dpo(
                 "repetition_penalty": repetition_penalty,
                 "no_repeat_ngram_size": no_repeat_ngram_size,
                 "score_gap_min": score_gap_min,
+                "val_score_gap_min": val_score_gap_min,
                 "max_pair_similarity": max_pair_similarity,
                 "max_resample_tries": max_resample_tries,
                 "listener_model_type": listener_model_type,
@@ -515,7 +517,7 @@ def train_dpo(
                     gap = abs(float(preferred["score_a"]) - float(preferred["score_b"]))
                     val_gaps.append(gap)
 
-                    if gap < score_gap_min:
+                    if gap < val_score_gap_min:
                         val_skipped += 1
                     else:
                         val_kept += 1
@@ -618,6 +620,7 @@ def parse_args():
     
     # Preference filtering arguments
     parser.add_argument("--score_gap_min", type=float, default=1e-4)
+    parser.add_argument("--val_score_gap_min", type=float, default=0.0)
     parser.add_argument("--max_pair_similarity", type=float, default=0.85)
     parser.add_argument("--max_resample_tries", type=int, default=2)
     
@@ -627,7 +630,7 @@ def parse_args():
     parser.add_argument("--test_size", type=float, default=0.1)
     parser.add_argument("--split_seed", type=int, default=42)
     parser.add_argument("--run_validation", action="store_true")
-    parser.add_argument("--validation_max_examples", type=int, default=128)
+    parser.add_argument("--validation_max_examples", type=int, default=512)
     
     # Wandb arguments
     parser.add_argument("--wandb_project", type=str, default=None)
@@ -668,6 +671,7 @@ def main():
         repetition_penalty=args.repetition_penalty,
         no_repeat_ngram_size=args.no_repeat_ngram_size,
         score_gap_min=args.score_gap_min,
+        val_score_gap_min=args.val_score_gap_min,
         max_pair_similarity=args.max_pair_similarity,
         max_resample_tries=args.max_resample_tries,
         listener_model_type=args.listener_model_type,
