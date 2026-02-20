@@ -641,11 +641,6 @@ def parse_args():
 def main():
     args = parse_args()
 
-    if args.wandb_project is not None:
-        if wandb.config:
-            for key in wandb.config:
-                setattr(args, key, wandb.config[key])
-
     if not 0.0 < args.train_loss_ema_alpha <= 1.0:
         raise ValueError(f"--train_loss_ema_alpha must be in (0, 1], got {args.train_loss_ema_alpha}")
     if args.train_loss_sma_window < 1:
