@@ -58,18 +58,18 @@ spec:
               --alpha 0.1 \
               --beta 0.05 \
               --max_length 128 \
-              --max_new_tokens 16 \
+              --max_new_tokens 32 \
               --top_p 0.9 \
               --temperature 0.8 \
               --repetition_penalty 1.0 \
               --no_repeat_ngram_size 0 \
               --score_gap_min 0.01 \
-              --max_pair_similarity 0.85 \
+              --max_pair_similarity 0.7 \
               --max_resample_tries 8 \
               --listener_model_type roberta-large \
               --listener_batch_size 8 \
               --run_validation \
-              --validation_max_examples 64
+              --validation_max_examples 128
             
             echo "checkpoints saved to /workspace/checkpoints"
             ls -lh /workspace/checkpoints/

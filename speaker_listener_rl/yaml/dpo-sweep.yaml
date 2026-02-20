@@ -1,13 +1,40 @@
 method: bayes
 metric:
-  name: train/loss_ema #dpo loss, might need to change to reward func
+  name: val/loss #dpo loss, might need to change to reward func
   goal: minimize
+
+program: speaker_listener_rl/training/dpo_with_listener_wandb.py
+
+command:
+  - ${env}
+  - python
+  - ${program}
+  - --wandb_project=dpo-training
+  - --policy_model=gpt2
+  - --reference_model=gpt2
+  - --input_path=speaker_listener_rl/data/simple_wiki_passages.jsonl
+  - --output_path=/workspace/checkpoints
+  - --epochs=5
+  - --max_length=128
+  - --max_new_tokens=32
+  - --top_p=0.9
+  - --temperature=0.8
+  - --repetition_penalty=1.0
+  - --no_repeat_ngram_size=0
+  - --max_pair_similarity=0.7
+  - --max_resample_tries=8
+  - --listener_model_type=roberta-large
+  - --listener_batch_size=8
+  - --run_validation
+  - --validation_max_examples=128
+  - ${args}
+
 
 parameters:
   learning_rate:
     distribution: log_uniform_values
-    min: 1e-5
-    max: 1e-3
+    min: 1e-6
+    max: 5e-5
 
   beta:
     distribution: log_uniform_values
@@ -17,27 +44,20 @@ parameters:
   temperature: #might not sweep over, not related to DPO strictly
     distribution: log_uniform_values
     min: 0.5
-    max: 1.5
+    max: 1
 
   top_p: #might not sweep over, not related to DPO strictly
     distribution: log_uniform_values
     min: 0.8
     max: 0.95
 
-  alpha0:
+  alpha:
     distribution: log_uniform_values
     min: 0.05
     max: 0.3
 
-  k:
-    distribution: int_uniform_values
-    min: 1
-    max: 4
-
-  # score_gap_min:
-  #   distribution: log_uniform_values
-  #   min: 0.01
-  #   max: 0.3
-
+  alpha_k:
+    values: [1, 2, 3, 4]
+  
   grad_accum:
     values: [2, 4, 8]

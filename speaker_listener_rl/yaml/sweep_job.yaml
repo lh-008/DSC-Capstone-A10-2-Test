@@ -10,10 +10,25 @@ spec:
       containers:
       - name: sweep-agent
         image: pytorch/pytorch:2.1.0-cuda11.8-cudnn8-runtime
-        command:
-          - wandb
-          - agent
-          - lemn-lab/dpo-training/3kdq5ss2 #replace for new sweep
+        workingDir: /workspace/repo
+
+        command: ["bash", "-lc"]
+        args:
+          - |
+            set -e
+            apt-get update && apt-get install -y git
+            
+            if [ ! -d /workspace/repo/.git ]; then
+              git clone https://github.com/banffjiang/DSC-Capstone-A10-2.git /workspace/repo
+            else
+              cd /workspace/repo && git pull
+            fi
+            cd /workspace/repo
+
+            pip install --no-cache-dir -r requirements.txt
+
+            python -m wandb agent lemn-lab/dpo-training/8iznjnlu
+
         env:
         - name: WANDB_API_KEY
           value: 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
@@ -32,12 +47,12 @@ spec:
 
         resources:
           requests:
-            cpu: "4"
-            memory: "16Gi"
+            cpu: "8"
+            memory: "32Gi"
             nvidia.com/gpu: "1"
           limits:
-            cpu: "8"
-            memory: "24Gi"
+            cpu: "16"
+            memory: "32Gi"
             nvidia.com/gpu: "1"
 
         volumeMounts:
@@ -47,5 +62,5 @@ spec:
       volumes:
       - name: workspace
         persistentVolumeClaim:
-          claimName: dpo-storage   # <-- replace with your PVC
+          claimName: dpo-sweep-storage   # <-- replace with your PVC
 
