@@ -31,7 +31,7 @@ command:
 
 
 parameters:
-  learning_rate:
+  lr:
     distribution: log_uniform_values
     min: 1e-6
     max: 5e-5

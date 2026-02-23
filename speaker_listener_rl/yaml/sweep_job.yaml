@@ -6,13 +6,22 @@ spec:
   backoffLimit: 0
   template:
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: nvidia.com/gpu.product
+                operator: In
+                values:
+                - NVIDIA-A10
       restartPolicy: Never
       containers:
       - name: sweep-agent
         image: pytorch/pytorch:2.1.0-cuda11.8-cudnn8-runtime
         workingDir: /workspace/repo
 
-        command: ["bash", "-lc"]
+        command: ["bash", "-lc"] #pip install --no-cache-dir -r requirements.txt
         args:
           - |
             set -e
@@ -25,9 +34,13 @@ spec:
             fi
             cd /workspace/repo
 
-            pip install --no-cache-dir -r requirements.txt
+            pip install -U wandb
+            pip uninstall -y torchvision torchaudio torch || true
+            pip install -U --force-reinstall torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+            pip install -U -r requirements.txt --no-deps
+            pip install -U transformers accelerate trl bert-score datasets sentencepiece protobuf filelock huggingface-hub tqdm numpy
 
-            python -m wandb agent lemn-lab/dpo-training/8iznjnlu
+            python -m wandb agent lemn-lab/dpo-training/l5n97h21
 
         env:
         - name: WANDB_API_KEY

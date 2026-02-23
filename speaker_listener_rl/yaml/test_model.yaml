@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: debug-checkpoints
+  name: test-model-pod
 spec:
   restartPolicy: Never
   containers:
   - name: shell
-    image: ubuntu:22.04
+    image: pytorch/pytorch:2.1.0-cuda11.8-cudnn8-runtime
     command: ["bash", "-lc", "sleep 36000"]
     volumeMounts:
     - name: work
