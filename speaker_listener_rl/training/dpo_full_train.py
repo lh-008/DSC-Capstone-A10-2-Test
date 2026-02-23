@@ -7,7 +7,6 @@ from pathlib import Path
 import torch
 import torch.nn.functional as F
 from transformers import AutoTokenizer, AutoModelForCausalLM, AutoConfig
-from transformers.convert_graph_to_onnx import parser
 import wandb
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
