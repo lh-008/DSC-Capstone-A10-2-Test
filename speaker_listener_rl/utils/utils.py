@@ -1,4 +1,7 @@
 import torch
+from torchgen import gen
+import random
+import numpy as np
 
 def jaccard_ngrams(a, b, n=2):
     #jaccard similarity over ngrams to ensure that the two summaries are sufficiently different
@@ -24,7 +27,8 @@ def make_prompt(source_text):
 
 @torch.inference_mode()
 def generate_summary(model, tokenizer, prompt, top_p, temperature, max_new_tokens, repetition_penalty, no_repeat_ngram_size, seed):
-    torch.manual_seed(seed)
+    gen = torch.Generator(device=model.device)
+    gen.manual_seed(seed)
 
     inputs = tokenizer(prompt, return_tensors="pt", truncation=True)
     inputs = {k: v.to(model.device) for k, v in inputs.items()}
@@ -47,3 +51,9 @@ def generate_summary(model, tokenizer, prompt, top_p, temperature, max_new_token
     if decoded.startswith(prompt):
         decoded = decoded[len(prompt):]
     return decoded.strip()
+
+def set_global_seed(seed):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
