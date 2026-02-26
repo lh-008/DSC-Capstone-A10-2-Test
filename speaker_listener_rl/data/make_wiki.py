@@ -1,10 +1,11 @@
 import json
 import os
 import re
+from typing import Optional
 
 
-BASE_DIR = os.path.dirname(__file__) 
-IN_PATH = os.path.join(BASE_DIR, "train_10M", "simple_wiki.train")
+BASE_DIR = os.path.dirname(__file__)
+IN_PATH = os.path.join(BASE_DIR, "train_100M", "simple_wiki.train")
 OUT_PATH = os.path.join(BASE_DIR, "simple_wiki_passages.jsonl")
 
 
@@ -32,7 +33,6 @@ def chunk_sentences(text: str, target_words: int) -> list[str]:
     Split into rough sentences and pack into passages ~target_words.
     Keeps it simple and robust for a .train file that's already sentence-ish.
     """
-    # Split on sentence boundaries; fallback to raw text if no split
     sents = re.split(r"(?<=[.!?])\s+", text)
     sents = [s.strip() for s in sents if s.strip()]
     if not sents:
@@ -63,11 +63,13 @@ def main(
     min_words: int = 20,
     max_words: int = 120,
     target_passage_words: int = 80,
-    max_instances: int = 8000,
+    max_instances: Optional[int] = None,
 ):
     """
-    Reads simplewiki.train, cleans text, chunks into multi-sentence passages,
-    writes jsonl: {id, source, passage}.
+    Reads simple_wiki.train from train_100M, cleans text, chunks into
+    multi-sentence passages, and writes jsonl records: {id, source, passage}.
+
+    `max_instances=None` writes all matching passages.
     """
     n = 0
 
@@ -86,15 +88,13 @@ def main(
                 ex = {"id": n, "source": "simplewiki", "passage": passage}
                 out.write(json.dumps(ex, ensure_ascii=False) + "\n")
                 n += 1
-                if n >= max_instances:
+                if max_instances is not None and n >= max_instances:
                     break
 
-            if n >= max_instances:
+            if max_instances is not None and n >= max_instances:
                 break
 
-
-
-    print(f"Wrote {n} passages to {OUT_PATH}")
+    print(f"Wrote {n} passages to {OUT_PATH} from {IN_PATH}")
 
 
 if __name__ == "__main__":

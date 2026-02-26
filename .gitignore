@@ -4,3 +4,9 @@ speaker_listener_rl/training/output/
 pycache/
 *.py[cod]
 .DS_Store
+
+# Ignore large raw training corpora and generated wiki dump
+speaker_listener_rl/data/train_10M/
+speaker_listener_rl/data/train_100M/
+speaker_listener_rl/data/*.train
+speaker_listener_rl/data/simple_wiki_passages.jsonl

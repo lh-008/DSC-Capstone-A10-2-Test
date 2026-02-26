@@ -1,16 +1,21 @@
 import json
+import os
 from typing import Dict, Iterator, Optional
+
+
+BASE_DIR = os.path.dirname(__file__)
+DEFAULT_WIKI_JSONL_PATH = os.path.join(BASE_DIR, "simple_wiki_passages.jsonl")
 
 
 class SimpleWikiPassageLoader:
     """
-    Iterates over simplewiki_passages.jsonl and yields dict examples.
+    Iterates over simple_wiki_passages.jsonl and yields dict examples.
 
     Expected jsonl schema:
       {"id": int, "source": "simplewiki", "passage": str}
     """
 
-    def __init__(self, path: str, limit: Optional[int] = None):
+    def __init__(self, path: str = DEFAULT_WIKI_JSONL_PATH, limit: Optional[int] = None):
         self.path = path
         self.limit = limit
 
