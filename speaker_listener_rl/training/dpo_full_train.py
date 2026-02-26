@@ -609,7 +609,7 @@ def train_dpo(
                         prompts, chosen, rejected = [], [], []
 
                     # Periodic logging
-                    if (global_step + 1) % 10 == 0:
+                    if (global_step + 1) % 50 == 0:
                         print(f"[Epoch {e+1}] Steps={global_step} | Kept={kept} | Skipped={skipped}")
             
 
@@ -798,9 +798,10 @@ def parse_args():
     
     # Generation arguments
     parser.add_argument("--top_p", type=float, default=0.9)
+    parser.add_argument("--top_k", type=int, default=50)
     parser.add_argument("--temperature", type=float, default=0.7)
     parser.add_argument("--max_new_tokens", type=int, default=16)
-    parser.add_argument("--repetition_penalty", type=float, default=1.0)
+    parser.add_argument("--repetition_penalty", type=float, default=1.2)
     parser.add_argument("--no_repeat_ngram_size", type=int, default=0)
     
     # Preference filtering arguments

@@ -59,8 +59,9 @@ spec:
               --max_length 128 \
               --max_new_tokens 32 \
               --top_p 0.9 \
+              --top_k 50 \
               --temperature 0.8 \
-              --repetition_penalty 1.0 \
+              --repetition_penalty 1.2 \
               --no_repeat_ngram_size 0 \
               --score_gap_min 0.01 \
               --max_pair_similarity 0.7 \
@@ -90,6 +91,16 @@ spec:
         #   value: "1"
         - name: TORCH_SHOW_CPP_STACKTRACES
           value: "1"
+        - name: HF_HOME
+          value: /workspace/.cache/huggingface
+        - name: HF_DATASETS_CACHE
+          value: /workspace/.cache/huggingface/datasets
+        - name: TRANSFORMERS_CACHE
+          value: /workspace/.cache/huggingface/transformers
+        - name: WANDB_DIR
+          value: /workspace/wandb
+        - name: PIP_CACHE_DIR
+          value: /workspace/.cache/pip
         
         volumeMounts:
         - mountPath: /workspace
@@ -99,10 +110,12 @@ spec:
           requests:
             memory: "32Gi"
             cpu: "8"
+            ephemeral-storage: "10Gi"
             nvidia.com/gpu: "1"
           limits:
             memory: "32Gi"
             cpu: "16"
+            ephemeral-storage: "20Gi"
             nvidia.com/gpu: "1"
 
       restartPolicy: Never
