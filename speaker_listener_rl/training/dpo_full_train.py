@@ -580,6 +580,7 @@ def train_dpo(
                     # Periodic logging
                     if (global_step + 1) % 10 == 0:
                         print(f"[Epoch {e+1}] Steps={global_step} | Kept={kept} | Skipped={skipped}")
+            
 
             print(
                 f"\n[Epoch {e+1} Complete] Total pairs kept: {kept}, skipped: {skipped}, "
@@ -789,7 +790,7 @@ def parse_args():
     parser.add_argument("--wandb_run_name", type=str, default=None)
 
     #training next token predict arguments
-    parser.add_argument("--nll_warmup_steps", type=int, default=5000)
+    parser.add_argument("--nll_warmup_steps", type=int, default=0)
     parser.add_argument("--nll_steps_per_cycle", type=int, default=2)
     parser.add_argument("--dpo_steps_per_cycle", type=int, default=1)
     parser.add_argument("--nll_batch_size", type=int, default=8)
