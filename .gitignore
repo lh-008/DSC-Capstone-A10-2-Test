@@ -6,7 +6,7 @@ pycache/
 .DS_Store
 
 # Ignore large raw training corpora and generated wiki dump
-speaker_listener_rl/data/train_10M/
-speaker_listener_rl/data/train_100M/
-speaker_listener_rl/data/*.train
-speaker_listener_rl/data/simple_wiki_passages.jsonl
+speaker_listener_rl/data/train_10M/*.train
+speaker_listener_rl/data/train_100M/*.train
+!speaker_listener_rl/data/train_10M/simple_wiki.train
+!speaker_listener_rl/data/train_100M/simple_wiki.train
