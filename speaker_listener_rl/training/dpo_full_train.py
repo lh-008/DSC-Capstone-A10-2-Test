@@ -184,6 +184,37 @@ def _update_sma(window_values, value):
     window_values.append(float(value))
     return float(sum(window_values) / len(window_values))
 
+#function to check what the top p are
+def inspect_top_p_tokens(model, tokenizer, prompt, top_p, top_n_to_show=20):
+    model.eval()
+    with torch.no_grad():
+        inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+        outputs = model(**inputs)
+        
+        # Get logits for the NEXT token
+        logits = outputs.logits[:, -1, :]
+        probs = F.softmax(logits, dim=-1).squeeze()
+
+        # Sort tokens by probability
+        sorted_probs, sorted_indices = torch.sort(probs, descending=True)
+
+        # Compute cumulative probability
+        cumulative_probs = torch.cumsum(sorted_probs, dim=0)
+
+        # Keep tokens inside top-p nucleus
+        nucleus_mask = cumulative_probs <= top_p
+        nucleus_indices = sorted_indices[nucleus_mask]
+
+        print(f"\nTop-p (p={top_p}) nucleus size:", nucleus_indices.shape[0])
+        print("Top tokens in nucleus:\n")
+
+        for i in range(min(top_n_to_show, nucleus_indices.shape[0])):
+            token_id = sorted_indices[i].item()
+            token_str = tokenizer.decode([token_id])
+            token_prob = sorted_probs[i].item()
+            print(f"{i+1:>2}. '{token_str}'  prob={token_prob:.4f}")
+    model.eval()
+
 def quick_generate_sample(
     policy,
     tokenizer,
@@ -715,6 +746,7 @@ def train_dpo(
             
             #check qualitative output on sample eval
             for i, prompt in enumerate(sample_eval_prompts):
+                inspect_top_p_tokens(policy, tokenizer, prompt, top_p=top_p, top_n_to_show=20)
                 sample = quick_generate_sample(
                     policy,
                     tokenizer,
