@@ -48,7 +48,6 @@ spec:
               --wandb_project dpo-training \
               --wandb_run_name simplewiki-run-$(date +%Y%m%d-%H%M) \
               --policy_model gpt2 \
-              --reference_model gpt2 \
               --input_path speaker_listener_rl/data/simple_wiki_passages.jsonl \
               --output_path /workspace/checkpoints \
               --epochs 5 \

@@ -147,7 +147,7 @@ def _anneal_alpha(epoch, max_epochs, alpha0, k):
 
     return alpha0 * float(torch.exp(torch.tensor(-k * t)))
 
-def dpo_loss(policy, ref, batch, epoch, max_epochs, alpha0, alpha_k, *, beta): #is a BatchPair
+def dpo_loss(policy, batch, epoch, max_epochs, alpha0, alpha_k, *, beta): #is a BatchPair
     pi_chosen = sequential_log_prob(policy, batch.ids_c, batch.attn_c, batch.labels_c)
     pi_rejected = sequential_log_prob(policy, batch.ids_r, batch.attn_r, batch.labels_r)
     
