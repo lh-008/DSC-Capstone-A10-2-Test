@@ -6,7 +6,7 @@ pycache/
 .DS_Store
 
 # Ignore large raw training corpora and generated wiki dump
-data/train_10M/*.train
-data/train_100M/*.train
+#data/train_10M/*.train
+#data/train_100M/*.train
 !data/train_10M/simple_wiki.train
 !data/train_100M/simple_wiki.train
