@@ -79,7 +79,7 @@ class BERTScoreListener:
             clean_cands.append(c)
             clean_refs.append(r)
 
-        P, R, F1 = self.scorer.score(candidates, references)
+        P, R, F1 = self.scorer.score(clean_cands, clean_refs)
         return [float(x) for x in F1.detach().cpu().tolist()]
 
     def prefer(self, cand_a, cand_b, reference):
