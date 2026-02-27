@@ -9,18 +9,18 @@ This repo implements a speaker-listener training loop where:
 
 There are two replication paths:
 
-1. **Main path (recommended):** train with `speaker_listener_rl/training/dpo_with_listener_wandb.py` on SimpleWiki passages.
+1. **Main path (recommended):** train with `training/dpo_with_listener_wandb.py` on SimpleWiki passages.
 2. **Auxiliary CHILDES path:** generate very short utterance summaries and score pairs.
 
 Most users should follow Path 1.
 
 ## Repository Structure
 
-- `speaker_listener_rl/data/` data prep scripts and JSONL loaders
-- `speaker_listener_rl/scripts/` baseline generation and pair-building scripts
-- `speaker_listener_rl/listener/` BERTScore listener and scoring scripts
-- `speaker_listener_rl/training/` DPO training and model testing scripts
-- `speaker_listener_rl/outputs/` generated artifacts
+- `data/` data prep scripts and JSONL loaders
+- `scripts/` baseline generation and pair-building scripts
+- `listener/` BERTScore listener and scoring scripts
+- `training/` DPO training and model testing scripts
+- `outputs/` generated artifacts
 
 ## Environment Setup
 
@@ -50,20 +50,20 @@ wandb login
 ### 1) Build SimpleWiki JSONL passages (from provided `.train` file)
 
 ```bash
-python speaker_listener_rl/data/make_wiki.py
+python data/make_wiki.py
 ```
 
 Expected output file:
-- `speaker_listener_rl/data/simple_wiki_passages.jsonl`
+- `data/simple_wiki_passages.jsonl`
 
 ### 2) Run DPO training with listener preferences + W&B logging
 
 ```bash
-python speaker_listener_rl/training/dpo_with_listener_wandb.py \
+python training/dpo_with_listener_wandb.py \
   --policy_model gpt2 \
   --reference_model gpt2 \
-  --input_path speaker_listener_rl/data/simple_wiki_passages.jsonl \
-  --output_path speaker_listener_rl/outputs/dpo_simplewiki \
+  --input_path data/simple_wiki_passages.jsonl \
+  --output_path outputs/dpo_simplewiki \
   --epochs 3 \
   --batch_size 4 \
   --grad_accum 4 \
@@ -91,14 +91,14 @@ python speaker_listener_rl/training/dpo_with_listener_wandb.py \
 ```
 
 Outputs:
-- Checkpoints: `speaker_listener_rl/outputs/dpo_simplewiki/checkpoint-*`
-- Final model: `speaker_listener_rl/outputs/dpo_simplewiki/final_model`
+- Checkpoints: `outputs/dpo_simplewiki/checkpoint-*`
+- Final model: `outputs/dpo_simplewiki/final_model`
 
 ### 3) Sample from the trained model
 
 ```bash
-python speaker_listener_rl/training/test_model.py \
-  --model_dir speaker_listener_rl/outputs/dpo_simplewiki/final_model \
+python training/test_model.py \
+  --model_dir outputs/dpo_simplewiki/final_model \
   --prompt "Keywords only. The quick brown fox jumps over the lazy dog. Summary:" \
   --max_new_tokens 16
 ```
@@ -108,51 +108,51 @@ python speaker_listener_rl/training/test_model.py \
 ### 1) Build CHILDES utterances
 
 ```bash
-python speaker_listener_rl/data/make_childes.py
+python data/make_childes.py
 ```
 
 Produces:
-- `speaker_listener_rl/data/childes_utterances.jsonl`
+- `data/childes_utterances.jsonl`
 
 ### 2) Generate short speaker outputs (K=2)
 
 ```bash
-python speaker_listener_rl/scripts/run_speaker_childes.py
+python scripts/run_speaker_childes.py
 ```
 
 Produces:
-- `speaker_listener_rl/outputs/generations_childes_K2.jsonl`
+- `outputs/generations_childes_K2.jsonl`
 
 ### 3) Convert generations to candidate-reference pairs
 
 ```bash
-python speaker_listener_rl/scripts/make_pairs.py
+python scripts/make_pairs.py
 ```
 
 Produces:
-- `speaker_listener_rl/outputs/childes_pairs_K2.jsonl`
+- `outputs/childes_pairs_K2.jsonl`
 
 ### 4) Score pairs with listener (BERTScore)
 
 ```bash
-python speaker_listener_rl/listener/scripts/score_pairs.py \
-  --infile speaker_listener_rl/outputs/childes_pairs_K2.jsonl \
-  --outfile speaker_listener_rl/outputs/childes_pairs_K2_scored.jsonl \
+python listener/scripts/score_pairs.py \
+  --infile outputs/childes_pairs_K2.jsonl \
+  --outfile outputs/childes_pairs_K2_scored.jsonl \
   --model_type roberta-large \
   --batch_size 16
 ```
 
 Produces:
-- `speaker_listener_rl/outputs/childes_pairs_K2_scored.jsonl`
+- `outputs/childes_pairs_K2_scored.jsonl`
 
 ## Optional Baseline Generation (SimpleWiki)
 
 ```bash
-python speaker_listener_rl/scripts/run_speaker_wiki.py
+python scripts/run_speaker_wiki.py
 ```
 
 Produces:
-- `speaker_listener_rl/outputs/speaker_summaries_simplewiki_K10.jsonl`
+- `outputs/speaker_summaries_simplewiki_K10.jsonl`
 
 ## Key Reproducibility Controls
 
@@ -172,12 +172,12 @@ Produces:
 If you only want to verify the pipeline quickly:
 
 ```bash
-python speaker_listener_rl/data/make_wiki.py
-python speaker_listener_rl/training/dpo_with_listener_wandb.py \
+python data/make_wiki.py
+python training/dpo_with_listener_wandb.py \
   --policy_model gpt2 \
   --reference_model gpt2 \
-  --input_path speaker_listener_rl/data/simple_wiki_passages.jsonl \
-  --output_path speaker_listener_rl/outputs/dpo_smoke \
+  --input_path data/simple_wiki_passages.jsonl \
+  --output_path outputs/dpo_smoke \
   --epochs 1 \
   --batch_size 2 \
   --grad_accum 2 \

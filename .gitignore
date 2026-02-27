@@ -1,12 +1,12 @@
 #Ignore model checkpoints
-speaker_listener_rl/training/output/
+training/output/
 
 pycache/
 *.py[cod]
 .DS_Store
 
 # Ignore large raw training corpora and generated wiki dump
-speaker_listener_rl/data/train_10M/*.train
-speaker_listener_rl/data/train_100M/*.train
-!speaker_listener_rl/data/train_10M/simple_wiki.train
-!speaker_listener_rl/data/train_100M/simple_wiki.train
+data/train_10M/*.train
+data/train_100M/*.train
+!data/train_10M/simple_wiki.train
+!data/train_100M/simple_wiki.train
