@@ -54,9 +54,9 @@ spec:
               --batch_size 16 \
               --grad_accum 8 \
               --lr 5e-6 \
-              --alpha 0.1 \
-              --beta 0.05 \
-              --max_length 128 \
+              --alpha 0 \
+              --beta 0.02 \
+              --max_length 512 \
               --max_new_tokens 32 \
               --top_p 0.9 \
               --top_k 50 \
