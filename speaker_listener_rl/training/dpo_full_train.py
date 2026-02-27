@@ -613,6 +613,7 @@ def train_dpo(
                     # Periodic logging
                     if (global_step + 1) % 50 == 0:
                         print(f"[Epoch {e+1}] Steps={global_step} | Kept={kept} | Skipped={skipped}")
+                        print()
             
 
             print(
