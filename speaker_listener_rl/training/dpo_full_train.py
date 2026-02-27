@@ -468,6 +468,7 @@ def train_dpo(
                         )
                     
                     if global_step % grad_accum == 0:
+                        torch.nn.utils.clip_grad_norm_(policy.parameters(), 1.0)
                         optimizer.step()
                         optimizer.zero_grad()
 
@@ -584,6 +585,7 @@ def train_dpo(
 
                         # Optimizer step with gradient accumulation
                         if global_step % grad_accum == 0:
+                            torch.nn.utils.clip_grad_norm_(policy.parameters(), 1.0)
                             optimizer.step()
                             optimizer.zero_grad()
 
